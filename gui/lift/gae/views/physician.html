@@ -1,0 +1,60 @@
+<header class="navbar navbar-default navbar-fixed-top">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="">Lifeline Medical Systems</a>
+
+    <div class="navbar-collapse collapse">
+      <ul class="nav navbar-nav hidden-xs pull-right">
+        <li class="item">
+          <a href="/">Logout</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</header>
+<section id="physician" class="patient-panel">
+  <div class="container top-container">
+    <div class="row">
+      <div class="col-sm-8 col-md-8">
+        <h4>List of Patients</h4>
+      </div>
+      <div class="col-sm-4 col-md-4 text-right">
+        <a href="" class="btn btn-large btn-primary" ng-click="openDialog()"><i class="fa fa-plus"></i> Add Patient</a>
+      </div>
+    </div>
+
+    <div class="patient-list" ng-cloak="groupedPatients">
+      <div class="row">
+        <div class="col-md-4" ng-repeat="patient in patients">
+          <div class="patient-item">
+            <div class="media">
+              <a href="" class="pull-left">
+                <img ng-src="images/{{patient.gender}}.png" alt="" class="thumbnail media-object user-image">
+              </a>
+
+              <div class="media-body">
+                <h4 class="media-heading patient-name">{{patient.name}}</h4>
+
+                <div class="text-muted"><i class="fa fa-map-marker"></i> {{patient.address}}</div>
+                <div class="text-muted">{{patient.dateOfBirth | date}}</div>
+                <ul class="communication">
+                  <li>
+                    <a href="" class="tooltips" data-toggle="tooltip" data-placement="top" title="" data-original-title="Email"><i class="fa fa-envelope-o"></i></a>
+                  </li>
+                  <li>
+                    <a href="" class="tooltips" data-toggle="tooltip" data-placement="top" title="" data-original-title="Send SMS"><i class="fa fa-mobile-phone"></i></a>
+                  </li>
+                  <li>
+                    <a href="" class="tooltips" data-toggle="tooltip" data-placement="top" title="" data-original-title="Check Prescriptions" ng-click="openPrescriptionDialog(patient.id)"><i class="fa fa-list"></i></a>
+                  </li>
+                  <li>
+                    <a ng-href="#/patients/{{patient.id}}/charts" class="tooltips" data-toggle="tooltip" data-placement="top" title="" data-original-title="Open Charts"><i class="fa fa-bar-chart-o"></i></a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

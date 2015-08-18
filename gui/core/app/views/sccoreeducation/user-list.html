@@ -1,0 +1,67 @@
+<h1>{{ctrl.userType}}</h1>
+
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Photo</th>
+            <th>First name</th>
+            <th>Last name</th>
+            <th>domain</th>
+            <th>Is student</th>
+            <th>Is Staff</th>
+            <th>Is Admin</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="user in ctrl.users track by user.id" ng-if="!user.isGuest">
+            <td>
+                <img ng-src="{{user.image.url}}" />
+            </td>
+            <td>{{user.name.givenName}}</td>
+            <td>{{user.name.familyName}}</td>
+            <td>{{user.domain}}</td>
+            <td>
+                <input type="checkbox" ng-checked="user.isStudent" disabled="disabled">
+            </td>
+            <td>
+                <ng-form name="switchStaffForm">
+                    <input type="checkbox" ng-model="user.isStaff" name="isStaff" ng-disabled="switchStaffForm.isStaff.disabled || ctrl.currentUser.id == user.id" ng-click="ctrl.switchStaff(user, switchStaffForm.isStaff)">
+                </ng-form>
+            </td>
+            <td>
+                <ng-form name="switchAdminForm">
+                    <input type="checkbox" ng-model="user.isAdmin" name="isAdmin" ng-disabled="switchAdminForm.isAdmin.disabled || user.isDomainAdmin || ctrl.currentUser.id == user.id" ng-click="ctrl.switchAdmin(user, switchAdminForm.isAdmin)">
+                </ng-form>
+            </td>
+            <td>
+                <button type="button" ng-hide="user.confirmDelete" class="btn btn-danger btn-xs" ng-click="user.confirmDelete = true" ng-disabled="!ctrl.currentUser.isAdmin || ctrl.currentUser.id == user.id">
+                    <span class="glyphicon glyphicon-remove"></span>
+                </button>
+
+                <button type="button" ng-show="user.confirmDelete" class="btn btn-danger" ng-click="ctrl.deleteUser(user)">
+                    Confirm delete
+                </button>
+                <button type="button" ng-show="user.confirmDelete" class="btn btn-default" ng-click="user.confirmDelete = false">
+                    Cancel
+                </button>
+
+            </td>
+        </tr>
+        <tr ng-if="ctrl.users.length == 0">
+            <td colspan="8">No {{ctrl.userType}}</td>
+        </tr>
+        <tr ng-if="ctrl.users == null">
+            <td colspan="8">Loading {{ctrl.userType}}</td>
+        </tr>
+
+    </tbody>
+    <tfoot ng-show="ctrl.users.cursor">
+        <tr>
+            <td colspan="8" class="more-btn">
+                <button class="btn btn-primary" ng-click="ctrl.getMore()" ng-disabled="ctrl.loading">More</button>
+            </td>
+        </tr>
+    </tfoot>
+</table>

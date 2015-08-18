@@ -1,0 +1,146 @@
+<h1>{{ctrl.userType}}</h1>
+
+<div class="row">
+    <div class="col-md-8">
+        <table class="table table-striped student-list">
+            <thead>
+                <tr>
+                    <th>Profile</th>
+                    <th>Name</th>
+                    <th>Year</th>
+                    <th>Is student</th>
+                    <th>Is Staff</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="user in ctrl.users track by user.studentId">
+                    <td ng-controller="SccePortraitUploadListCtrl as uploadCtrl" class="upload-portrait">
+                        <a href="" ng-click="uploadCtrl.showForm = true">
+                            <img ng-if="!uploadCtrl.showForm" ng-src="{{uploadCtrl.image(user.image, 32)}}" ng-attr-alt="{{user.displayName}}'s portrait;" />
+                        </a>
+                        <input ng-if="uploadCtrl.showForm" type="file" ng-file-select="uploadCtrl.upload(user, $files)" />
+                    </td>
+                    <td>
+                        <span ng-hide="user.editName">
+                            {{user.displayName}} -
+                            <button type="button" ng-hide="user.editName" class="btn btn-default btn-xs" ng-click="ctrl.editUserName(user)">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                            </button>
+                        </span>
+                        <form class="form-inline" role="form" ng-show="user.editName">
+
+                            <div class="form-group">
+                                <label class="sr-only" ng-attr-for="{{user.studentId}}-given-name">given name</label>
+                                <input type="text" ng-model="user.newName.givenName" placeholder="given name" ng-change="ctrl.updateNewDisplayName(user)" class="form-control" ng-attr-id="{{user.studentId}}-given-name" />
+                            </div>
+
+                            <div class="form-group">
+                                <label class="sr-only" ng-attr-for="{{user.studentId}}-family-name">family name</label>
+                                <input type="text" ng-model="user.newName.familyName" placeholder="family name" ng-change="ctrl.updateNewDisplayName(user)" class="form-control" ng-attr-id="{{user.studentId}}-family-name" />
+                            </div>
+
+                            <div class="form-group">
+                                <label class="sr-only" ng-attr-for="{{user.studentId}}-display-name">display name</label>
+                                <input type="text" ng-model="user.newName.displayName" placeholder="display name" class="form-control" ng-attr-id="{{user.studentId}}-display-name" />
+                            </div>
+
+                            <button type="button" class="btn btn-primary" ng-click="ctrl.saveUserName(user)">
+                                <span class="glyphicon glyphicon-ok"></span>
+                            </button>
+                            <button type="button" class="btn btn-default" ng-click="ctrl.cancelEditName()">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </button>
+                        </form>
+
+                    </td>
+                    <td>{{user.year}}</td>
+                    <td>
+                        <input type="checkbox" ng-checked="user.isStudent" disabled="disabled">
+                    </td>
+                    <td>
+                        <input type="checkbox" ng-checked="user.isStaff" ng-disabled="user.isStaff || !user.id" ng-click="ctrl.makeStaff(user)">
+                    </td>
+                    <td>
+
+                        <button type="button" ng-hide="user.confirmDelete" class="btn btn-danger btn-xs" ng-click="user.confirmDelete = true">
+                            <span class="glyphicon glyphicon-remove"></span>
+                        </button>
+
+                        <button type="button" ng-show="user.confirmDelete" class="btn btn-danger" ng-click="ctrl.deleteStudent(user)">
+                            Confirm delete
+                        </button>
+                        <button type="button" ng-show="user.confirmDelete" class="btn btn-default" ng-click="user.confirmDelete = false">
+                            Cancel
+                        </button>
+
+                    </td>
+                </tr>
+                <tr ng-if="ctrl.users.length == 0">
+                    <td colspan="6">No {{ctrl.userType}}</td>
+                </tr>
+                <tr ng-if="ctrl.users == null">
+                    <td colspan="6">Loading {{ctrl.userType}}</td>
+                </tr>
+            </tbody>
+
+            <tfoot ng-show="ctrl.users.cursor">
+                <tr>
+                    <td colspan="6" class="more-btn">
+                        <button class="btn btn-primary" ng-click="ctrl.getMore()" ng-disabled="ctrl.loading">More</button>
+                    </td>
+                </tr>
+            </tfoot>
+
+        </table>
+    </div>
+
+    <div class="col-md-4" ng-if="ctrl.currentUser.isAdmin">
+        <div>
+            <form role="form" id="upload-form">
+                <fielset>
+                    <legend>Upload student list</legend>
+
+                    <div class="form-group">
+                        <label for="file-select">Select a csv file to upload :</label>
+                        <input type="file" id="file-select" class="form-control" ng-file-select="ctrl.fileSelected($files, ctrl.upload)" scce-file="ctrl.upload.file">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="file-year">Year :</label>
+                        <input type="text" class="form-control" id="file-year" placeholder="YYYY" ng-model="ctrl.upload.year" ng-pattern="/\d+/" ng-minlength="4" ng-maxlength="4" />
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-block" ng-click="ctrl.uploadFile(ctrl.upload)" ng-disabled="!ctrl.upload.file || !ctrl.upload.year || ctrl.upload.inProgress" id="upload-file">
+                        Upload
+                    </button>
+                    <hr/>
+                    <p>Expecting a csv file with the following format:</p>
+                    <pre>
+S/N,Surname,Student Name,NUS Email
+1,Bob,"Smith, Bob",A0000001@NUS.EDU.SG
+2,Alice,Alice Brown,A0000002@NUS.EDU.SG
+...</pre>
+                </fielset>
+            </form>
+            <hr/>
+            <form role="form" id="archive-year" name="archiveYearForm" ng-controller="ScceArchiveYearCtrl as archCtrl">
+                <fieldset>
+                    <legend>Archive years</legend>
+
+                    <div class="form-group">
+                        <label for="year">Year to archive</label>
+                        <select id="year" name="year" required="true" class="form-control" ng-model="archCtrl.selectedYear" ng-options="y as y.label for y in archCtrl.years track by y.id">
+                            <option value="">Select a year</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-block" ng-click="archCtrl.archiveYear(archCtrl.selectedYear, ctrl.users)" ng-disabled="archiveYearForm.$invalid">
+                        Archive
+                    </button>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+
+</div>

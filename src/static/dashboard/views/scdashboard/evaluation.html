@@ -1,0 +1,8 @@
+<h1>{{ctrl.evaluation.name}}</h1>
+
+
+<div class="row evaluations">
+  <div class="col-md-4" ng-repeat="(_, topic) in ctrl.evaluation.results">
+    <scd-pf-bars scd-pf-data="topic" class="evaluation"></scd-pf-bars>
+  </div>
+</div>

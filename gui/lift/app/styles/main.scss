@@ -1,0 +1,550 @@
+$icon-font-path: "/bower_components/bootstrap-sass-official/vendor/assets/fonts/bootstrap/";
+$font-family-base: "Lato", "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+$navbar-default-bg: #5e87b0;
+$navbar-default-link-color: #fff;
+$navbar-default-link-active-color:         #fff;
+$navbar-default-link-hover-color:          #bcbcbc;
+@import 'bootstrap-sass-official/vendor/assets/stylesheets/bootstrap';
+@import 'font-awesome/scss/font-awesome.scss';
+
+#main-container {
+  padding-top: 20px;
+}
+
+@media (max-width: 768px) {
+  .gap {
+    margin-top: 10px;
+  }
+}
+@media (min-width: 768px) {
+  .sidebar {
+    position: fixed;
+    top: 51px;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+    display: block;
+    padding: 20px;
+    overflow-x: hidden;
+    overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+    background: none repeat scroll 0 0 #f4f4f4;
+    border-right: 1px solid #eee;
+  }
+
+  .main {
+    padding-right: 40px;
+    padding-left: 40px;
+  }
+}
+
+.main {
+  padding: 20px;
+  .page-header {
+    margin-top: 0;
+  }
+}
+
+.page-header {
+  padding-bottom: 9px;
+  margin: 40px 0 20px;
+  border-bottom: 1px solid #eee;
+}
+
+/* Styling for the ngProgress itself */
+#ngProgress {
+  margin: 0;
+  padding: 0;
+  z-index: 99998;
+  background-color: green;
+  color: green;
+  box-shadow: 0 0 10px 0; /* Inherits the font color */
+  height: 2px;
+  opacity: 0;
+
+  /* Add CSS3 styles for transition smoothing */
+  -webkit-transition: all 0.5s ease-in-out;
+  -moz-transition: all 0.5s ease-in-out;
+  -o-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+}
+
+/* Styling for the ngProgress-container */
+#ngProgress-container {
+  position: fixed;
+  margin: 0;
+  padding: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 99999;
+}
+
+
+.small-text {
+  font-size: 10pt;
+}
+
+.capitalize {
+  text-transform: uppercase;
+}
+
+.gap1 {
+  margin-top: 15px;
+}
+
+.left-panel {
+  width: 240px;
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  .logo-panel {
+    padding: 10px;
+    background: #fff;
+
+    h1 {
+      font-size: 20px;
+      letter-spacing: -1.5px;
+      color: #1d2939;
+      line-height: 20px;
+      margin: 0;
+      font-family: 'Lato', 'Lucida Grande', 'Lucida Sans Unicode', Helvetica, sans-serif;
+    }
+  }
+}
+
+#clinician-container {
+  font-family: 'Lato', 'Lucida Grande', 'Lucida Sans Unicode', Helvetica, sans-serif !important;
+  background: #1d2939;
+  font-weight: 700;
+
+}
+.main-panel {
+  margin-left: 240px;
+  background: #e4e7ea;
+  min-height: 800px;
+
+  .page-header {
+    padding: 15px;
+    border-bottom: 1px solid #d3d7db;
+    border-top: 1px solid #eee;
+    background: #f7f7f7;
+    position: relative;
+
+    h2 {
+      font-size: 28px;
+      color: #1D2939;
+      letter-spacing: -0.5px;
+      margin: 0;
+    }
+
+    .fa {
+      font-size: 24px;
+      margin-right: 5px;
+      padding:  6px 7px;
+      border: 2px solid #1D2939;
+      border-radius: 50px;
+    }
+  }
+
+
+}
+.content-panel {
+
+  padding: 20px;
+
+  .panel-stat {
+    background: none;
+
+    .panel-heading {
+      padding: 15px;
+      border-radius: 3px;
+    }
+
+    .stat {
+      color: #fff;
+      max-width: 250px;
+    }
+
+    .stat-label {
+      text-transform: uppercase;
+      font-size: 11px;
+      opacity: 0.75;
+      display: block;
+      line-height: normal;
+      margin-bottom: 2px;
+    }
+
+    h1 {
+      margin: 0;
+      line-height: 36px;
+      font-family: 'Helvetica Neue', sans-serif;
+      font-size: 38px;
+    }
+  }
+
+  .row {
+    margin-left: -10px;
+    margin-right: -10px;
+  }
+
+  .panel {
+    border-radius: 3px;
+    border: 0;
+    box-shadow: 0 3px 0 rgba(12,12,12,0.03);
+  }
+}
+
+.panel-chronic .panel-heading {
+  background: #7962D0;
+}
+
+.panel-nominal .panel-heading {
+  background: #DCAF32;
+}
+
+.panel-acute .panel-heading {
+  background: #FD0000;
+}
+
+.panel-new .panel-heading {
+  background: #DCAF32;
+}
+
+.panel-alt  {
+  .panel-heading {
+    padding: 20px 20px;
+  }
+
+  .panel-title {
+    font-size: 13px;
+    text-transform: uppercase;
+    font-family: 'Lato';
+    font-weight: 700;
+    color: #111;
+  }
+}
+
+.widget-messaging .panel-body {
+  padding: 0;
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    li:first-child {
+      border-top: 0;
+    }
+
+    li {
+      padding: 15px;
+      border-top: 1px solid #eee;
+      background-color: #fff;
+
+      small {
+        line-height: normal;
+        font-size: 12px;
+      }
+
+      .sender {
+        font-size: 13px;
+        color: #333;
+        margin: 0;
+        line-height: normal;
+      }
+    }
+  }
+
+
+}
+
+.panel-default .panel-heading {
+  border-color: #e7e7e7;
+  background-color: #fff;
+}
+.big {
+  font-size: 60px;
+}
+
+@media screen and (max-width: 1024px) {
+  body {
+    position: relative;
+  }
+
+  .left-panel {
+    display: none;
+  }
+
+  .main-panel {
+    margin-left: 0;
+    width: 100%;
+  }
+}
+
+.mb30 {
+  margin-bottom: 30px;
+}
+
+.mb5 {
+  margin-bottom: 5px;
+}
+
+.mt5 {
+  margin-top: 5px;
+}
+
+.subtitle {
+  font-size: 13px;
+  text-transform: uppercase;
+  color: #333;
+  font-weight: 700;
+  margin-top: 0;
+}
+
+.table {
+  background: #fcfcfc;
+  -webkit-box-shadow: 0 3px 0 rgba(12,12,12,0.03);
+  -moz-box-shadow: 0 3px 0 rgba(12,12,12,0.03);
+  box-shadow: 0 3px 0 rgba(12,12,12,0.03);
+}
+
+.table th {
+  font-weight: 700;
+  font-family: 'Lato';
+}
+
+.table thead > tr > th {
+  border-color: #eee;
+  background-color: #fff;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  color: #444;
+}
+
+.table thead > tr > th,
+.table tbody > tr > th,
+.table tfoot > tr > th,
+.table thead > tr > td,
+.table tbody > tr > td,
+.table tfoot > tr > td {
+  border-color: #eee;
+}
+
+.table tbody > tr > td {
+  font-weight: 400;
+  font-family: 'Lato';
+
+}
+
+
+
+.table-striped > tbody > tr:nth-child(2n+1) > td,
+.table-striped > tbody > tr:nth-child(2n+1) > th {
+  background-color: #f5f5f5;
+}
+
+
+.top-container {
+  padding-top: 40px;
+}
+
+.user-image {
+  width: 100px;
+  height: 100px;
+  border: 0;
+}
+
+.patient-panel {
+
+  background: #e4e7ea;
+  min-height: 800px;
+
+  .patient-item {
+    background: #fcfcfc;
+    font-weight: 400;
+    font-family: 'Lato';
+    padding: 20px;
+    font-size: 13px;
+    border-radius: 3px;
+    -webkit-box-shadow: 0 3px 0 rgba(12,12,12,0.03);
+    -moz-box-shadow: 0 3px 0 rgba(12,12,12,0.03);
+    box-shadow: 0 3px 0 rgba(12,12,12,0.03);
+    margin-bottom: 20px;
+  }
+
+  .media {
+    padding: 0;
+  }
+
+  .patient-name {
+    margin: 0 0 5px 0;
+    color: #428BCA;
+  }
+
+  .communication {
+    margin-top: 10px;
+    margin-bottom: 0;
+    list-style: none;
+    padding: 0;
+
+    li {
+      float: left;
+      margin-right: 5px;
+      margin-left: 5px;
+    }
+
+    a {
+      font-size: 16px;
+      border: 1px solid #ddd;
+      padding: 3px 5px;
+      width: 30px;
+      display: block;
+      text-align: center;
+      border-radius: 2px;
+      color: #666;
+    }
+  }
+}
+
+.prescription-modal {
+  .modal-dialog {
+    width: 700px;
+  }
+}
+
+svg {
+  .canvas {
+    fill: rgba(255,255,255,1);
+    stroke: #000;
+    stroke-width: 1;
+  }
+
+  .chart-area {
+    fill: #fff;
+
+  }
+
+  .axis {
+    stroke: #000;
+    stroke-width: 1;
+  }
+
+  .glucose {
+    stroke: steelblue;
+    stroke-width: 1;
+    fill: none;
+  }
+
+  .temp {
+    stroke: #ff0000;
+    fill: none;
+  }
+
+  .axis {
+    shape-rendering: crispEdges;
+  }
+
+  .x.axis line {
+    stroke: lightgrey;
+  }
+
+  .x.axis .minor {
+    stroke-opacity: .5;
+  }
+
+  .x.axis path {
+    display: none;
+  }
+
+  .x.axis text {
+    font-size: 8pt;
+  }
+
+  .y.axis line, .y.axis path {
+    fill: none;
+    stroke: #000;
+  }
+
+  .y.axis text {
+    font-size: 8pt;
+  }
+
+  .y.axisRight text {
+    fill: orange;
+  }
+
+  .y.axisLeft text {
+    fill: steelblue;
+  }
+
+  .glucose {
+    fill: none;
+    stroke: steelblue;
+    stroke-width: 1;
+  }
+
+  .temp {
+    fill: none;
+    stroke: red;
+    stroke-width: 1;
+  }
+
+  .glucosec {
+    fill: steelblue;
+    stroke: black;
+    stroke-width: 1;
+  }
+
+  .tempc {
+    fill: red;
+    stroke: black;
+    stroke-width: 1;
+  }
+
+  .taken {
+    fill: steelblue;
+    stroke: black;
+    stroke-width: 1;
+  }
+
+  .not-taken {
+    fill: none;
+    stroke: black;
+    stroke-width: 1;
+  }
+
+  .temp-mean {
+    stroke: red;
+    stroke-dasharray : "4,4";
+    stroke-opacity: 0.5;
+
+  }
+
+  .temp-max {
+    stroke: red;
+    stroke-dasharray : "4,4";
+    stroke-opacity: 0.6;
+    stroke-width: 2;
+
+  }
+
+  .glucose-mean {
+    stroke: steelblue;
+    stroke-dasharray : "4,4";
+    stroke-opacity: 0.5;
+
+  }
+
+  .glucose-max {
+    stroke: steelblue;
+    stroke-dasharray : "4,4";
+    stroke-opacity: 0.7;
+    stroke-width: 2;
+
+  }
+}
+
+.center-time {
+  margin: 0 auto;
+}

@@ -1,0 +1,68 @@
+<div ng-include="'./views/navbar.html'"></div>
+<div class="container-fluid" id="main-container">
+  <div class="row">
+    <div class="col-sm-3 col-md-2 sidebar">
+    </div>
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+      <h3 class="page-header">Health Meters</h3>
+
+      <div class="row chartholders">
+        <div class="col-sm-8">
+          <h4>Relevant Health Meters</h4>
+        </div>
+        <div class="col-sm-4 text-right">
+          <a href="">Insights(1)</a>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-5">
+          <img src="holder.js/350x100/sky/text:Chart 1" holder-fix="">
+        </div>
+        <div class="col-sm-5 col-sm-offset-1">
+          <img src="holder.js/350x100/sky/text:Chart 2" holder-fix="">
+        </div>
+      </div>
+
+      <div class="row gap1">
+        <div class="col-sm-8">
+          <h4 class="capitalize">Next Appointments / Events</h4>
+        </div>
+        <div class="col-sm-4 text-right">
+          <div class="row">
+            Filter By:
+            <div class="btn-group text-left">
+              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                Show All <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="">Show All</a></li>
+                <li><a href="">Show Immediate</a></li>
+                <li><a href="">Show Critical</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row gap1">
+        <div class="col-sm-12">
+          <table class="table table-striped table-bordered">
+            <thead>
+            <tr>
+              <th>Select</th>
+              <th>Date</th>
+              <th>Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="event in events">
+              <td><input type="checkbox"></td>
+              <td>{{event.date}}</td>
+              <td>{{event.event}}</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

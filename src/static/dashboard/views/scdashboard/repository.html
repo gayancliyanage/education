@@ -1,0 +1,122 @@
+<div class="row">
+    <div class="col-sm-8">
+        <h1>Repository</h1>
+
+        <form role="form" class="form-inline" ng-if="ctrl.selector.available">
+            <div class="form-group">
+                <label for="selected-student">Show repository of</label>
+                <select id="selected-student" class="form-control "
+                    ng-model="ctrl.selector.selected" ng-options="s as s.displayName group by s.year for s in ctrl.selector.students track by s.studentId"
+                    ng-change="ctrl.listFile(ctrl.selector.selected.studentId)"
+                >
+                    <option value="">Select a student</option>
+                </select>
+            </div>
+            <hr/>
+        </form>
+    </div>
+    <div class="col-sm-4" ng-if="ctrl.selector.selected.studentId">
+        <img class="center-block" ng-src="{{ctrl.selector.selected.image.url|portrait:128}}" alt="">
+    </div>
+</div>
+
+<div class="row">
+    <div ng-class="{'col-md-8': ctrl.selector.available, 'col-md-12': !ctrl.selector.available}">
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Type</th>
+                    <th>Sender</th>
+                    <th>Sent date</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="file in ctrl.files" class="file-details">
+                    <td><a ng-href="{{file.url}}">{{file.name}}</a>
+                    </td>
+                    <td>{{file.type}}</td>
+                    <td>{{file.sender}}</td>
+                    <td>{{file.uploadedAt}}</td>
+                    <td>
+                        <a ng-href="{{file.url}}" ng-hide="file.confirmDelete" role="button" class="btn btn-primary btn-sm">
+                            <span class="glyphicon glyphicon-download"></span>
+                        </a>
+
+                        <button type="button" ng-hide="file.confirmDelete || !ctrl.currentUser.isAdmin"  class="btn btn-danger btn-sm" ng-click="file.confirmDelete = true">
+                            <span class="glyphicon glyphicon-remove"></span>
+                        </button>
+
+                        <button type="button" ng-show="file.confirmDelete"  class="btn btn-danger" ng-click="ctrl.delete(file)">
+                            Confirm delete
+                        </button>
+                        <button type="button" ng-show="file.confirmDelete"  class="btn btn-default" ng-click="file.confirmDelete = false">
+                            Cancel
+                        </button>
+
+                    </td>
+                </tr>
+
+                <tr ng-if="ctrl.files == null">
+                    <td colspan="5">Loading file list...</td>
+                </tr>
+
+                <tr ng-if="ctrl.selector.selected.studentId &amp;&amp; ctrl.files.length == 0">
+                    <td colspan="5">No files</td>
+                </tr>
+
+                <tr ng-if="!ctrl.selector.selected.studentId">
+                    <td colspan="5">No Student selected</td>
+                </tr>
+
+                <tr ng-if="ctrl.files.cursor" class="show-more">
+                    <td colspan="5">
+                        <button class="btn btn-primary" ng-click="ctrl.showMore(ctrl.files.curor)">
+                            Show more
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="col-md-4" ng-if="ctrl.selector.available &amp;&amp; ctrl.selector.selected.studentId">
+        <div>
+            <form role="form" ng-controller="ScdRepositoryUploadFileCtrl as uploadCtrl" id="upload-form">
+                <fielset>
+                    <legend>Upload File</legend>
+
+                    <div class="form-group">
+                        <label for="file-select">Select a file to upload :</label>
+                        <input type="file" id="file-select" class="form-control" scd-file="uploadCtrl.selected.file" ng-file-select="uploadCtrl.onFileSelect($files)" accept="application/pdf">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="file-name">File name :</label>
+                        <input type="text" class="form-control" id="file-name" placeholder="File name" ng-model="uploadCtrl.fileMeta.name" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="selected-doc-type">Document type</label>
+                        <select id="selected-doc-type" class="form-control" ng-model="uploadCtrl.fileMeta.docType" ng-options="n for n in uploadCtrl.docTypes">
+                            <option value="">Select a document type</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-block" ng-click="uploadCtrl.uploadButtonClicked(ctrl.selector.selected, uploadCtrl.selected.file, ctrl.files)" ng-hide="uploadCtrl.showProgress" ng-disabled="!ctrl.selector.selected || !uploadCtrl.selected.file || !uploadCtrl.fileMeta.docType" id="upload-file">
+                        Upload
+                    </button>
+
+                    <div class="progress progress-striped active" ng-show="uploadCtrl.showProgress">
+                        <div class="progress-bar" role="progressbar" ng-attr-aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" ng-style="{'width': uploadCtrl.progress + '%'}">
+                            <span class="sr-only">45% Complete</span>
+                        </div>
+                    </div>
+
+                </fielset>
+            </form>
+        </div>
+    </div>
+</div>

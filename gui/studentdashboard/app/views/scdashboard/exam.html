@@ -1,0 +1,60 @@
+<h1>Exam {{ctrl.exam.name}}</h1>
+
+<div class="row">
+  <div class="col-md-8">
+    <scd-svg-container scd-viewbox="ctrl.layout">
+      <svg class="exam">
+
+        <g class="chart">
+          <rect class="border" ng-attr-width="{{ctrl.layout.innerWidth}}" ng-attr-height="{{ctrl.layout.innerHeight}}"/>
+          <line class="mean" ng-attr-transform="translate({{ctrl.layout.innerWidth/2}},0)" ng-attr-y2="{{ctrl.layout.innerHeight}}"/>
+
+          <g class="results" ng-repeat="(_, r) in ctrl.exam.results" ng-attr-transform="translate(0,{{ctrl.yScale(r.topic.name)}})">
+            <text ng-attr-transform="translate({{-ctrl.layout.margin.left+10}},0)">
+              {{r.topic.name}}
+            </text>
+            <line ng-attr-x1="{{ctrl.xScale(r.data.min)}}" ng-attr-x2="{{ctrl.xScale(r.data.max)}}"/>
+            <line class="min" ng-attr-transform="translate({{ctrl.xScale(r.data.min)}})" y1="-5" y2="5"/>
+            <line class="max" ng-attr-transform="translate({{ctrl.xScale(r.data.max)}})" y1="-5" y2="5"/>
+            <rect ng-attr-transform="translate({{ctrl.xScale(r.data.mean)-4}},-4)" width="8" height="8"/>
+          </g>
+        </g>
+
+        <g class="axis x-axis" ng-attr-transform="translate(0,{{ctrl.layout.innerHeight}})">
+          <line ng-attr-x2="{{ctrl.layout.innerWidth}}"/>
+          <g class="ticks">
+            <g class="tick" ng-repeat="t in ctrl.ticks" ng-attr-transform="translate({{ctrl.xScale(t)}},0)">
+              <line y2="5"/>
+            </g>
+            <g class="main-tick tick" ng-repeat="t in [-2, -1, 0, 1, 2]" ng-attr-transform="translate({{ctrl.xScale(t)}},0)">
+              <line y1="5" y2="8"/>
+              <text dy="12">{{t}}</text>
+            </g>
+          </g>
+        </g>
+
+      </svg>
+    </scd-svg-container>
+  </div>
+
+  <div class="col-md-4">
+    <h3>Interpretation</h3>
+    <p>
+      This graph provides information about your performance relative to the
+      performance of all other students on each topic.
+    </p>
+    <p>
+      The green line represents the mean percentage of questions that all students
+      have answered correctly on this topic, over time (not necessarily the same
+      questions that you have answered on each topic).
+    </p>
+    <p>
+      The red box is your mean score, and the hatch marks represent the standard
+      deviation of your scores.
+    </p>
+    <p>
+      By comparing the red boxes, you can determine the disciplines and organ
+      systems in which your performance is relatively weak or strong.
+    </p>
+  </div>
+</div>

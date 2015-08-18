@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<!--(if target dev)><!-->
+<html lang="en" data-ng-app="scDashboardMocked">
+<!--<!(endif)-->
+<!--(if target build || e2e)><html lang="en" data-ng-app="scDashboard"><!(endif)-->
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width">
+    <title ng-init="page={}" ng-bind="api.title">Student dashboard</title>
+
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300,400,600,700' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
+
+    <!-- build:css(app) css/vendor.css -->
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap-theme.css">
+    <link rel="stylesheet" href="lib/angular-loading-bar/build/loading-bar.css">
+
+    <!-- endbuild -->
+
+    <!-- build:css(app) css/app.css -->
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="css/chart.css">
+    <!-- endbuild -->
+</head>
+
+<body>
+    <div id="wrap">
+        <header class="navbar navbar-default navbar-fixed-top" role="navigation" ng-controller="ScdNavBarCtrl as navCtrl">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-nav">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="">Student Dasboard</a>
+                </div>
+                <div class="navbar-collapse collapse" id="main-nav">
+                    <ul class="nav navbar-nav">
+                        <li ng-class="{active: navCtrl.isActive('/', true)}">
+                            <a ng-href="#/">Repository</a>
+                        </li>
+                        <li ng-class="{active: navCtrl.isActive('/review')}">
+                            <a ng-href="#/review">Rosh Review</a>
+                        </li>
+                        <li ng-class="{active: navCtrl.isActive('/first-aid')}">
+                            <a ng-href="#/first-aid">First Aid</a>
+                        </li>
+                        <li ng-class="{active: navCtrl.isActive('/students')}" ng-if="navCtrl.currentUser.isStaff || navCtrl.currentUser.isAdmin">
+                            <a ng-href="#/students">Students</a>
+                        </li>
+                        <li ng-class="{active: navCtrl.isActive('/users')}" ng-if="navCtrl.currentUser.isAdmin">
+                            <a ng-href="#/users">Permissions</a>
+                        </li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <p class="navbar-text" ng-if="navCtrl.currentUser == null">Loading current user ..</p>
+                            <p class="navbar-text" ng-if="navCtrl.currentUser.displayName">Signed in as {{navCtrl.currentUser.displayName}}</p>
+                        </li>
+                        <li ng-if="navCtrl.currentUser">
+                            <a ng-href="{{navCtrl.currentUser.loginUrl}}" ng-if="!navCtrl.currentUser.isLoggedIn &amp;&amp; navCtrl.currentUser.loginUrl">
+                                <i class="glyphicon glyphicon-off"></i> login
+                            </a>
+                            <a ng-href="{{navCtrl.currentUser.logoutUrl}}" ng-if="navCtrl.currentUser.isLoggedIn &amp;&amp; navCtrl.currentUser.logoutUrl">
+                                <i class="glyphicon glyphicon-off"></i> logout
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </header>
+        <div class="container-fluid">
+            <div class="row">
+                <div ng-view="" id="main-container" class="col-md-12"></div>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        <div class="container">
+            <p class="text-muted">&copy; 2014, Chris Boesch</p>
+        </div>
+    </footer>
+
+    <!--(if target dev || e2e)><!-->
+    <script>
+    // See https://github.com/danialfarid/angular-file-upload#-old-browsers
+    window.FileAPI = {
+        jsUrl: 'lib/ng-file-upload/FileAPI.min.js',
+        flashUrl: 'lib/ng-file-upload/FileAPI.flash.swf'
+    };
+    </script>
+    <!--<!(endif)-->
+    <!--(if target build)>
+    <script>
+        window.FileAPI = {
+            jsUrl: 'js/FileAPI.min.js',
+            flashUrl: 'js/FileAPI.flash.swf'
+        };
+    </script>
+    <!(endif)-->
+
+    <!-- build:js(app) js/vendor.js -->
+    <script src="lib/jquery/dist/jquery.js"></script>
+    <script src="lib/lodash/dist/lodash.js"></script>
+    <script src="lib/d3/d3.js"></script>
+    <script src="lib/ng-file-upload/angular-file-upload-shim.js"></script>
+    <script src="lib/angular/angular.js"></script>
+    <script src="lib/angular-cookies/angular-cookies.js"></script>
+    <script src="lib/angular-sanitize/angular-sanitize.js"></script>
+    <script src="lib/angular-route/angular-route.js"></script>
+    <script src="lib/restangular/dist/restangular.js"></script>
+    <script src="lib/ng-file-upload/angular-file-upload.js"></script>
+    <script src="lib/bootstrap/js/collapse.js"></script>
+    <script src="lib/angular-loading-bar/build/loading-bar.js"></script>
+    <script src="lib/angular-strap/dist/modules/dimensions.js"></script>
+    <script src="lib/angular-strap/dist/modules/parse-options.js"></script>
+    <script src="lib/angular-strap/dist/modules/tooltip.js"></script>
+    <script src="lib/angular-strap/dist/modules/tooltip.tpl.js"></script>
+    <script src="lib/angular-strap/dist/modules/typeahead.js"></script>
+    <script src="lib/angular-strap/dist/modules/typeahead.tpl.js"></script>
+    <!-- endbuild -->
+
+    <!-- build:js(app) js/app.js -->
+    <script src="js/app.js"></script>
+    <script src="js/app-config.js"></script>
+    <script src="js/app-services.js"></script>
+    <script src="js/app-controllers.js"></script>
+    <script src="components/chart/chart-directives.js"></script>
+    <script src="components/firstaid/firstaid-controllers.js"></script>
+    <script src="components/misc/misc-filters.js"></script>
+    <script src="components/misc/misc-services.js"></script>
+    <script src="components/repository/repository-controllers.js"></script>
+    <script src="components/repository/repository-services.js"></script>
+    <script src="components/review/review-controllers.js"></script>
+    <script src="components/selector/selector-services.js"></script>
+    <script src="components/students/students-controllers.js"></script>
+    <script src="components/svg/svg-directives.js"></script>
+    <script src="components/svg/svg-services.js"></script>
+    <script src="components/upload/upload-directives.js"></script>
+    <script src="components/users/users-controllers.js"></script>
+    <!-- endbuild -->
+
+    <!--(if target dev || e2e)><!-->
+    <script src="lib/angular-mocks/angular-mocks.js"></script>
+    <script src="js/app-fixtures.js"></script>
+    <!--<!(endif)-->
+    <!--(if target dev)><!-->
+    <script src="js/app-test.js"></script>
+    <!--<!(endif)-->
+</body>
+
+</html>

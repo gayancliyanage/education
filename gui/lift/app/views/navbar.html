@@ -1,0 +1,33 @@
+<header class="navbar navbar-default navbar-fixed-top" role="navigation"  ng-controller="NavbarCtrl">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="">Lifeline Medical Systems</a>
+    </div>
+    <div class="navbar-collapse collapse">
+      <ul class="nav navbar-nav pull-left hidden-xs">
+        <li ng-repeat="item in menu" ng-class="{active: isActive(item.link)}" class="item">
+          <a ng-href="{{item.link}}">{{item.title}}</a>
+        </li>
+      </ul>
+      <ul class="nav navbar-nav pull-right">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">User:  {{activeUser.name}} <b class="caret"></b></a>
+          <ul class="dropdown-menu">
+            <li ng-repeat="user in users" ng-click="chooseUser(user)">
+              <a href="">{{user.name}}</a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a href=""><i class="fa fa-power-off"></i> Logout</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</header>

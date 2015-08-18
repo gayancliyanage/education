@@ -1,0 +1,58 @@
+<header class="navbar navbar-default navbar-fixed-top">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="">Lifeline Medical Systems</a>
+
+    <div class="navbar-collapse collapse">
+      <ul class="nav navbar-nav hidden-xs pull-right">
+        <li class="item">
+          <a href="#/patients/1/">Login as Patient 1</a>
+        </li>
+        <li class="item">
+          <a href="#/patients/2/">Login as Patient 2</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</header>
+
+<div class="container top-container">
+  <h2>{{patient.name}}</h2>
+  <hr/>
+  <tabset>
+    <tab heading="{{data.name}} Chart" ng-repeat="data in chartData">
+      <div class="container">
+        <br/>
+        <div class="row">
+          <div class="col-lg-12">
+            <form action="" class="form-inline">
+              <div class="form-group">
+                <label for="minGlucose">Min Glucose</label>
+                <input type="number" class="form-control" id="minGlucose" placeholder="Min Glucose Value" ng-model="data.minGlucose" maxlength="5">
+              </div>
+              <div class="form-group">
+                <label for="maxGlucose">Max Glucose</label>
+                <input type="number" class="form-control" id="maxGlucose" placeholder="Max Glucose Value" ng-model="data.maxGlucose" maxlength="5">
+              </div>
+              <div class="form-group">
+                <label for="minTemp">Min Temperature</label>
+                <input type="number" class="form-control" id="minTemp" placeholder="Min Temperature Value" ng-model="data.minTemp" maxlength="5">
+              </div>
+
+              <div class="form-group">
+                <label  for="maxTemp">Max Temperature</label>
+                <input type="number" class="form-control" id="maxTemp" placeholder="Max Temperature Value" ng-model="data.maxTemp" maxlength="5">
+              </div>
+            </form>
+          </div>
+        </div>
+        <br/>
+        <div class="row">
+          <la-data-chart data="data"></la-data-chart>
+        </div>
+      </div>
+
+    </tab>
+  </tabset>
+
+</div>
+

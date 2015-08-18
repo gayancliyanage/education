@@ -1,0 +1,14 @@
+<ul class="nav navbar-nav navbar-right">
+  <li>
+    <p class="navbar-text" ng-if="user.loading">Loading current user info...</p>
+    <p class="navbar-text" ng-if="user.info.name">Signed in as {{user.info.displayName}}</p>
+  </li>
+  <li ng-if="user.info">
+    <a ng-href="{{user.info.loginUrl}}" ng-if="!user.info.isLoggedIn &amp;&amp; user.info.loginUrl">
+      <i class="glyphicon glyphicon-off"></i> login
+    </a>
+    <a ng-href="{{user.info.logoutUrl}}" ng-if="user.info.isLoggedIn &amp;&amp; user.info.logoutUrl">
+      <i class="glyphicon glyphicon-off"></i> logout
+    </a>
+  </li>
+</ul>

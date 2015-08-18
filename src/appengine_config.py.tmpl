@@ -1,0 +1,37 @@
+import site
+import os.path
+
+# add `lib` subdirectory to `sys.path`, so our `main` module can load
+# third-party libraries.
+site.addsitedir(os.path.join(os.path.dirname(__file__), 'lib'))
+
+# Default url to retunr the user to after authentication
+educationcore_DEFAULT_RETURN_URL = '/dashboard/'
+
+# Valid domain a account can be part to.
+#
+# Any user on those domain will have student permission
+#
+# It should list all valid account linked to a domain admin account.
+educationcore_VALID_DOMAINS = {
+    'example.com': 'admin@example.com',
+}
+
+
+# Rosh Review API key.
+# Used in
+# https://graphs.roshreview.com/programs/<API KEY>/subscriber_details?...
+educationdashboardservices_ROSH_REVIEW_API_KEY = (
+    'xxxxxx'
+)
+
+# First Aid Credentials
+# Use https://api.usmle-rx.com/v1/user/0/id?name={username} to find
+# the user id.
+educationdashboardservices_FIRST_AID_AUTH_ID = '126699'
+educationdashboardservices_FIRST_AID_AUTH_PW = 'password'
+
+# First Aid report url
+educationdashboardservices_FIRST_AID_REPORT_URL_PATTERN = (
+    'https://api.usmle-rx.com/v1/report/123/execute?%s'
+)

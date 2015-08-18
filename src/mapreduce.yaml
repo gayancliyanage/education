@@ -1,0 +1,8 @@
+mapreduce:
+- name: Touch all entity_kind Models
+  mapper:
+    input_reader: mapreduce.input_readers.DatastoreInputReader
+    handler: education.tasks.utils.fix_entity_handlers
+    params:
+    - name: entity_kind
+      default: education.core.models.Student

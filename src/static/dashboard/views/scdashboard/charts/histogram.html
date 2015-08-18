@@ -1,0 +1,41 @@
+<scd-svg-container scd-viewbox="layout" ng-if="layout">
+    <svg>
+
+        <g class="axis x-axis" ng-attr-transform="translate(0,{{layout.innerHeight}})">
+            <g class="ticks">
+                <g class="tick" ng-repeat="x in scales.x.ticks(10)" ng-attr-transform="translate({{scales.x(x)}})">
+                    <line ng-attr-y1="-{{layout.innerHeight}}" y2="5" />
+                    <text y="7" dy="1ex">{{x}}</text>
+                </g>
+                <line class="tick miner-tick" ng-repeat="x in scales.x.ticks(50)" ng-attr-transform="translate({{scales.x(x)}})" ng-attr-y1="-{{layout.innerHeight}}" />
+            </g>
+            <line x1="-5" ng-attr-x2="{{layout.innerWidth}}" />
+            <text class="label" ng-attr-transform="translate({{layout.innerWidth/2}},25)" dy=".5ex">
+                <tspan>{{legend.x.label}}</tspan><tspan ng-if="legend.x.unit"> ({{legend.x.unit}})</tspan>
+            </text>
+        </g>
+
+        <g class="data">
+            <g class="chart-row" ng-click="onClick(row)" ng-class="{'failing': options.isFailing(row), 'click': onClick}" ng-repeat="row in series track by row.id" ng-attr-transform="translate(0,{{scales.y(row.id) + scales.y.rangeBand()/2}})">
+                <text class="data-label" dx="-7" dy=".5ex">{{options.getLabel(row)}}</text>
+                <rect y="-5" height="10" ng-attr-width="{{scales.x(options.getValue(row))}}" />
+                <line class="average" ng-if="options.hasRef(row)" ng-attr-transform="translate({{scales.x(options.getRef(row).value)}},0)" y1='-5' y2='5' />
+                <text class="data-value" dx="5" dy=".5ex" ng-attr-x="{{scales.x(options.getValue(row))}}">{{options.getValueAsString(row)}}</text>
+            </g>
+        </g>
+
+        <g class="axis y-axis">
+            <line ng-attr-y2="{{layout.innerHeight}}" />
+            <g class="ticks">
+                <line class="tick" ng-repeat="y in scales.y.range()" ng-attr-transform="translate(0,{{y}})" x1="-5" ng-attr-x2="{{layout.innerWidth}}" />
+            </g>
+        </g>
+
+        <g class="average" ng-if="ref" ng-attr-transform="translate({{scales.x(ref.value)}})">
+            <line y1="-5" ng-attr-y2="{{layout.innerHeight + 5}}" />
+            <text x="5" y="-10">{{ref.label}} ({{ref.value|number:1}} {{ref.unit}})</text>
+        </g>
+
+    </svg>
+</scd-svg-container>
+

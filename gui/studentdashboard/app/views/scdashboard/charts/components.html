@@ -1,0 +1,30 @@
+<scd-svg-container scd-viewbox="layout" ng-if="layout">
+    <svg>
+        <g class="pie" ng-attr-transform="translate({{layout.innerWidth / 2}},{{layout.innerHeight / 2}})">
+            <g class="slice" ng-repeat="slice in slices track by slice.data.id" ng-class="'pie-slice-' + slice.data.id">
+                <g ng-if="$index == 0">
+                    <path ng-attr-d="{{arc(slice)}}" ng-attr-transform="{{shiftSlice(slice, 10)}}" />
+                    <text class="pie-label" ng-attr-transform="{{shiftLabel(slice, 10)}}" dy=".35em" ng-class="{'past-center': onLeftCenter(slice)}" ng-if="slice.data.value > 0">
+                        {{slice.data.label}}
+                    </text>
+                </g>
+                <g ng-if="$index > 0">
+                    <path ng-attr-d="{{arc(slice)}}" />
+                    <text ng-attr-transform="{{shiftLabel(slice)}}" dy=".35em" ng-class="{'pie-label': true, 'past-center': onLeftCenter(slice)}" ng-if="slice.data.value > 0">
+                        {{slice.data.label}}
+                    </text>
+                </g>
+            </g>
+        </g>
+
+
+
+        <g class="progress" ng-attr-transform="translate({{layout.width/6 - layout.margin.left}},{{-layout.margin.top/2}})">
+            <text dy="-1.7ex" style="font-size:24px; font-weight:200">{{mainData.title}}</text>
+            <text dy=".7ex" style="font-size:48px" ng-if="mainData.value != null">{{mainData.value}} {{mainData.unit}}</text>
+            <text dy=".7ex" style="font-size:48px" ng-if="mainData.value == null">N/A</text>
+            <text dy="6ex" style="font-size:10px; font-weight:200">{{mainData.subTitle}}</text>
+        </g>
+
+    </svg>
+</scd-svg-container>

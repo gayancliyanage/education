@@ -1,0 +1,55 @@
+<h4>{{data.topic.name}}</h4>
+
+<scd-svg-container scd-viewbox="layout">
+  <svg>
+
+    <g class="rulers">
+      <line ng-repeat="v in yAxisScale.ticks(10)"
+        ng-if="!$first"
+        ng-attr-transform="translate(0,{{yAxisScale(v)}})"
+        ng-attr-x2="{{layout.innerWidth}}"
+      />
+    </g>
+
+    <g class="chart">
+      <g class="series" ng-repeat="series in data.data" ng-attr-transform="translate({{xScale(series.name)}},0)">
+        <rect ng-repeat="field in xSubScale.domain()"
+          ng-class="translate(field)|dash"
+          ng-attr-x="{{xSubScale(field)}}"
+          ng-attr-y="{{layout.innerHeight-yScale(series[field])}}"
+          ng-attr-width="{{xSubScale.rangeBand()}}"
+          ng-attr-height="{{yScale(series[field])}}"
+        />
+      </g>
+    </g>
+
+    <g class="axis x-axis" ng-attr-transform="translate(0, {{layout.innerHeight}})">
+      <line ng-attr-x2="{{layout.innerWidth}}"/>
+      <g class="ticks">
+        <g class="tick" ng-repeat="name in xScale.domain()" ng-attr-transform="translate({{xScale(name)}},0)">
+          <line y2="7" ng-attr-transform="translate({{xScale.rangeBand()}},0)"/>
+          <text ng-attr-x="{{xScale.rangeBand()/2}}" dy="10">{{name}}</text>
+        </g>
+      </g>
+    </g>
+
+    <g class="legend"
+      ng-repeat="name in legendScale.domain()"
+      ng-attr-transform="translate({{legendScale(name)}},{{layout.height}})"
+    >
+      <rect ng-class="translate(name)|dash" y="-2em" width="1em" height="1em"/>
+      <text y="-1.5em" x="2em">{{translate(name)}}</text>
+    </g>
+
+    <g class="axis y-axis">
+      <line ng-attr-y2="{{layout.innerHeight}}"/>
+      <g class="ticks">
+        <g class="tick" ng-repeat="v in yAxisScale.ticks(10)" ng-attr-transform="translate(0,{{yAxisScale(v)}})">
+          <line x2="-7"/>
+          <text dx="-12">{{v|percent}}</text>
+        </g>
+      </g>
+    </g>
+
+  </svg>
+</scd-svg-container>

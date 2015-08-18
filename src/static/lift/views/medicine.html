@@ -1,0 +1,31 @@
+<div ng-include="'./views/navbar.html'"></div>
+<div class="container-fluid" id="main-container">
+  <div class="row">
+    <div class="col-sm-3 col-md-2 sidebar">
+    </div>
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+      <h3 class="page-header">Medicine</h3>
+      <div class="row chartholders">
+        <div class="col-sm-12">
+          <h5>Active Medicines</h5>
+          <table class="table table-striped table-bordered">
+            <thead>
+            <tr>
+              <th>Drug Name</th>
+              <th>Dosage</th>
+              <th>Classification</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="medicine in activeMedicines | orderBy: 'drugName'">
+              <td>{{medicine.drugName}}</td>
+              <td>{{medicine.dosage}}</td>
+              <td>{{medicine.classification}}</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

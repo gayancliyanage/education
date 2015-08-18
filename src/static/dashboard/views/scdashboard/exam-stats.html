@@ -1,0 +1,30 @@
+<h1>{{ctrl.exam.name}}</h1>
+
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="table-scroll">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Student ID</th>
+                        <th>Overall</th>
+                        <th>Min</th>
+                        <th>Average</th>
+                        <th>Max</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr ng-repeat="result in ctrl.exam.studentResults">
+                        <td>{{result.studentId}}</td>
+                        <td>{{result.stats.all.user*100|number:0}}</td>
+                        <td>{{ctrl.exam.stats.all.min*100|number:0}}</td>
+                        <td>{{ctrl.exam.stats.all.mean*100|number:0}}</td>
+                        <td>{{ctrl.exam.stats.all.max*100|number:0}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

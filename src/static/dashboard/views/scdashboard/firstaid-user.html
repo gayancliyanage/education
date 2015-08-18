@@ -1,0 +1,72 @@
+<h1>
+    First Aid
+    <small>
+        <a href="https://www.usmle-rx.com" target="_blank">
+            First Aid Web Page
+            <span class="glyphicon glyphicon-circle-arrow-right"></span>
+        </a>
+    </small>
+</h1>
+
+<div class="well" ng-if="ctrl.selector.available">
+    <form role="form" class="form-inline" ng-if="ctrl.selector.available">
+        <div class="form-group">
+            <label for="selected-student">Show results of</label>
+            <select id="selected-student" class="form-control "
+                ng-model="ctrl.selector.selected" ng-options="s as s.displayName group by s.year for s in ctrl.selector.students track by s.studentId"
+                ng-change="ctrl.showStats(ctrl.selector.selected.studentId)"
+            >
+                <option value="">Select a student</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            or <a href="#/first-aid/stats">Show global performances</a>
+        </div>
+
+    </form>
+</div>
+
+<p ng-show="!ctrl.selector.selected.studentId" class="alert alert-info" role="alert">
+    <strong>No student selected.</strong>
+</p>
+
+<p ng-show="ctrl.selector.selected.studentId &amp;&amp; !ctrl.userStats" class="alert alert-info" role="alert">
+    <strong>No stats found for this student.</strong>
+</p>
+
+<div class="graph-view" ng-if="ctrl.selector.selected.studentId &amp;&amp; ctrl.userStats">
+
+    <!-- Result breakdown by topics -->
+    <div class="row">
+
+        <div class="col-md-12">
+
+            <div class="well">
+                <h2>Performance by Category</h2>
+                <hr/>
+
+<!--                 <form role="form" class="form-inline filter-selectors">
+
+                    <div class="form-group">
+                        <label for="compare-user-to">Compared to:</label>
+                        <select id="compare-user-to" class="form-control" ng-model="ctrl.filters.ref" ng-options="opt.id as opt.label for opt in ctrl.filterOptions.refs"></select>
+                    </div>
+
+                </form> -->
+
+                <scd-chart-histogram
+                    scd-layout="ctrl.byCategory.layout"
+                    scd-series="ctrl.userStats.categoryPerformances"
+                    scd-options="ctrl.byCategory.options"
+                    scd-legend="{x: {label: 'Correct answers rate', unit: '%'}}"
+                >
+                </scd-chart-histogram>
+
+            </div>
+
+        </div>
+    </div>
+
+
+</div>

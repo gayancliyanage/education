@@ -1,0 +1,263 @@
+<h1>Students</h1>
+
+<div class="well">
+
+    <form role="form" class="form-horizontal">
+
+        <div class="form-group">
+            <label for="search-student" class="col-sm-4 control-label">Search students</label>
+            <div class="col-sm-4">
+                <input id="search-student" class="form-control"
+                    ng-model="ctrl.rawFilter"
+                    ng-model-options="{updateOn: 'default blur', debounce: {'default': 1000, 'blur': 0}}"
+                    ng-change="ctrl.filterUpdated(ctrl.rawFilter)"
+                    placeholder="Name and/or Year"
+                />
+            </div>
+        </div>
+
+    </form>
+
+</div>
+
+<div class="row">
+    <div class="col-md-8">
+        <table class="table table-striped student-list">
+            <thead>
+                <tr>
+                    <th>Profile</th>
+                    <th>Name</th>
+                    <th>Year</th>
+                    <th>Secondary email</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="student in ctrl.students track by student.studentId">
+                    <td ng-controller="ScdPortraitUploadListCtrl as uploadCtrl" class="upload-portrait">
+                        <a href="" ng-click="uploadCtrl.showForm = true">
+                            <img ng-if="!uploadCtrl.showForm" ng-src="{{student.image.url|portrait:32}}" ng-attr-alt="{{student.displayName}}'s portrait;" />
+                        </a>
+                        <input ng-if="uploadCtrl.showForm" type="file" ng-file-select="uploadCtrl.upload(student, $files)" />
+                    </td>
+                    <td>
+                        <span ng-hide="student.editName">
+                            {{student.displayName}} -
+                            <button type="button" class="btn btn-default btn-xs" ng-click="ctrl.editName.start(student)">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                            </button>
+                        </span>
+                        <form class="form-inline" role="form" ng-show="student.editName">
+
+                            <div class="form-group">
+                                <label class="sr-only" ng-attr-for="{{student.studentId}}-given-name">given name</label>
+                                <input type="text" ng-model="student.newName.givenName" placeholder="given name" ng-change="ctrl.editName.updateDisplayName(student)" class="form-control" ng-attr-id="{{student.studentId}}-given-name" />
+                            </div>
+
+                            <div class="form-group">
+                                <label class="sr-only" ng-attr-for="{{student.studentId}}-family-name">family name</label>
+                                <input type="text" ng-model="student.newName.familyName" placeholder="family name" ng-change="ctrl.editName.updateDisplayName(student)" class="form-control" ng-attr-id="{{student.studentId}}-family-name" />
+                            </div>
+
+                            <div class="form-group">
+                                <label class="sr-only" ng-attr-for="{{student.studentId}}-display-name">display name</label>
+                                <input type="text" ng-model="student.newName.displayName" placeholder="display name" class="form-control" ng-attr-id="{{student.studentId}}-display-name" />
+                            </div>
+
+                            <button type="button" class="btn btn-primary" ng-click="ctrl.editName.save(student)">
+                                <span class="glyphicon glyphicon-ok"></span>
+                            </button>
+
+                            <button type="button" class="btn btn-default" ng-click="ctrl.editName.cancel(student)">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </button>
+                        </form>
+
+                    </td>
+                    <td>
+                        <span ng-hide="student.editYear">
+                            {{student.year}} -
+                            <button type="button" class="btn btn-default btn-xs" ng-click="ctrl.editYear.start(student)">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                            </button>
+                        </span>
+                        <form class="form-inline" role="form" ng-show="student.editYear" name="editYear">
+
+                            <div class="form-group">
+                                <label class="sr-only" ng-attr-for="{{student.studentId}}-year">Student year</label>
+                                <input type="number" ng-model="student.newYear.year" placeholder="YYYY" class="form-control" ng-attr-id="{{student.studentId}}-year" ng-pattern="/20\d{2}/" ng-attr-min="{{ctrl.thisYear}}" ng-attr-max="{{ctrl.thisYear + 10}}"/>
+                            </div>
+
+                            <button type="button" class="btn btn-primary" ng-click="ctrl.editYear.save(student)" ng-disabled="editYear.$invalid">
+                                <span class="glyphicon glyphicon-ok"></span>
+                            </button>
+
+                            <button type="button" class="btn btn-default" ng-click="ctrl.editYear.cancel(student)">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </button>
+                        </form>
+                    </td>
+                    <td>
+                        <span ng-hide="student.editEmail">
+                            {{student.secondaryEmail}} -
+                            <button type="button" class="btn btn-default btn-xs" ng-click="ctrl.editEmail.start(student)">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                            </button>
+                        </span>
+                        <form class="form-inline" role="form" ng-show="student.editEmail">
+                            <div class="form-group">
+                                <label class="sr-only" ng-attr-for="{{student.studentId}}-email">Student email</label>
+                                <input type="email" ng-model="student.newEmail.secondaryEmail" placeholder="secondary email" class="form-control" ng-attr-id="{{student.studentId}}-email"/>
+                            </div>
+
+                            <button type="button" class="btn btn-primary" ng-click="ctrl.editEmail.save(student)">
+                                <span class="glyphicon glyphicon-ok"></span>
+                            </button>
+
+                            <button type="button" class="btn btn-default" ng-click="ctrl.editEmail.cancel(student)">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </button>
+                        </form>
+                    </td>
+                    <td>
+
+                        <button type="button" ng-hide="student.confirmDelete" class="btn btn-danger btn-xs" ng-click="student.confirmDelete = true">
+                            <span class="glyphicon glyphicon-remove"></span>
+                        </button>
+
+                        <button type="button" ng-show="student.confirmDelete" class="btn btn-danger" ng-click="ctrl.deleteStudent(student)">
+                            Confirm delete
+                        </button>
+                        <button type="button" ng-show="student.confirmDelete" class="btn btn-default" ng-click="student.confirmDelete = false">
+                            Cancel
+                        </button>
+
+                    </td>
+                </tr>
+                <tr ng-if="ctrl.students.length == 0">
+                    <td colspan="5">No students</td>
+                </tr>
+                <tr ng-if="ctrl.students == null">
+                    <td colspan="5">Loading students...</td>
+                </tr>
+            </tbody>
+
+            <tfoot ng-show="ctrl.students.cursor">
+                <tr>
+                    <td colspan="5" class="more-btn">
+                        <button class="btn btn-primary" ng-click="ctrl.getMore()" ng-disabled="ctrl.loading">More</button>
+                    </td>
+                </tr>
+            </tfoot>
+
+        </table>
+    </div>
+
+    <div class="col-md-4" ng-if="ctrl.currentUser.isAdmin">
+        <div>
+
+            <form role="form" name="uploadYearForm" id="upload-form" ng-controller="ScdUploadYearCtrl as uploadCtrl">
+                <fielset>
+                    <legend>Upload student list</legend>
+
+                    <div class="form-group">
+                        <label for="file-select">Select a csv file to upload :</label>
+                        <input type="file" id="file-select" class="form-control" ng-file-select="uploadCtrl.fileSelected($files, uploadCtrl)" scd-file="uploadCtrl.file" accept="text/csv">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="file-year">Year :</label>
+                        <input type="number" class="form-control" id="file-year" name="uploadYear" placeholder="YYYY" ng-model="uploadCtrl.year" ng-required="true" ng-pattern="/\d{4}/" ng-attr-min="{{uploadCtrl.thisYear}}" ng-attr-max="{{uploadCtrl.thisYear + 10}}" />
+                        <span class="help-block" ng-show="uploadYearFormYear.$dirty &amp;&amp; uploadYearForm.uploadYear.$invalid">Year should be between {{uploadCtrl.thisYear}} and {{uploadCtrl.thisYear + 10}}</span>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-block" ng-click="uploadCtrl.uploadFile(uploadCtrl, ctrl.reload)" ng-disabled="!uploadCtrl.file || uploadYearForm.uploadYear.$invalid || uploadCtrl.inProgress" id="upload-file">
+                        Upload
+                    </button>
+                    <hr/>
+                    <p>Expecting a csv file with the following format:</p>
+                    <pre>
+S/N,Surname,Student Name,NUS Email
+1,Bob,"Smith, Bob",A0000001@NUS.EDU.SG
+2,Alice,Alice Brown,A0000002@NUS.EDU.SG
+...</pre>
+                </fielset>
+            </form>
+            <hr/>
+
+            <form name="addStudentForm" ng-controller="ScdNewStudentCtrl as newStudentCtrl" class="form-horizontal">
+                <fieldset>
+                    <legend>Add a student</legend>
+
+                    <div class="form-group">
+                        <label for="student-id" class="col-md-5 control-label">Student ID:</label>
+                        <span class="col-md-7">
+                            <input type="text" class="form-control" id="student-id" name="studentId" ng-required="true" ng-model="newStudentCtrl.data.studentId" placeholder="student id" ng-pattern="/A\d+/i" />
+                            <span class="help-block" ng-show="addStudentForm.studentId.$dirty &amp;&amp; addStudentForm.studentId.$invalid">should start with an <i>A</i> and be followed by a sequence of number.</span>
+                        </span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="given-name" class="col-md-5 control-label">given name:</label>
+                        <span class="col-md-7">
+                            <input type="text" class="form-control" id="given-name" ng-required="true" ng-model="newStudentCtrl.data.name.givenName" placeholder="given name" ng-change="newStudentCtrl.updateDisplayName(newStudentCtrl.data)" />
+                        </span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="family-name" class="col-md-5 control-label">family name:</label>
+                        <span class="col-md-7">
+                            <input type="text" class="form-control" id="family-name" ng-required="true" ng-model="newStudentCtrl.data.name.familyName" placeholder="family name" ng-change="newStudentCtrl.updateDisplayName(newStudentCtrl.data)" />
+                        </span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="display-name" class="col-md-5 control-label">display name:</label>
+                        <span class="col-md-7">
+                            <input type="text" class="form-control" id="display-name" ng-required="true" ng-model="newStudentCtrl.data.displayName" placeholder="display name" />
+                        </span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="year" class="col-md-5 control-label">Year:</label>
+                        <span class="col-md-7">
+                            <input type="number" class="form-control" id="year" name="year" ng-required="true" placeholder="YYYY" ng-model="newStudentCtrl.data.year" ng-required="true" ng-pattern="/\d{4}/" ng-attr-min="{{newStudentCtrl.thisYear}}" ng-attr-max="{{newStudentCtrl.thisYear + 10}}" />
+                            <span class="help-block" ng-show="addStudentForm.year.$dirty &amp;&amp; addStudentForm.year.$invalid">Year should be between {{newStudentCtrl.thisYear}} and {{newStudentCtrl.thisYear + 10}}</span>
+                        </span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email" class="col-md-5 control-label">Secondary Email:</label>
+                        <span class="col-md-7">
+                            <input type="email" class="form-control" id="email" ng-required="true" placeholder="email" ng-model="newStudentCtrl.data.secondaryEmail" />
+                            <span class="help-block">The email the student uses to log on First Aid and Rosh Review</span>
+                        </span>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-block" ng-click="newStudentCtrl.addStudent(newStudentCtrl.data, ctrl.reload)" ng-disabled="addStudentForm.$invalid">
+                        Add student
+                    </button>
+                </fieldset>
+            </form>
+            <hr/>
+
+            <form role="form" id="archive-year" name="archiveYearForm" ng-controller="ScdArchiveYearCtrl as archCtrl">
+                <fieldset>
+                    <legend>Archive years</legend>
+
+                    <div class="form-group">
+                        <label for="year">Year to archive</label>
+                        <select id="year" name="year" required="true" class="form-control" ng-model="archCtrl.selectedYear" ng-options="y as y.label for y in archCtrl.years track by y.id">
+                            <option value="">Select a year</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-block" ng-click="archCtrl.archiveYear(archCtrl.selectedYear, ctrl.students)" ng-disabled="archiveYearForm.$invalid">
+                        Archive
+                    </button>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+
+</div>

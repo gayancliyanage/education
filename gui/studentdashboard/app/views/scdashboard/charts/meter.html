@@ -1,0 +1,38 @@
+<scd-svg-container scd-viewbox="layout" ng-if="layout">
+    <svg>
+
+        <g class="meter" ng-attr-transform="translate({{layout.innerWidth/2}},{{layout.innerHeight}})">
+
+            <g class="slices">
+                <path class="slice" ng-repeat="slice in levelSlices" ng-class="'meter-level-' + slice.data.id" ng-attr-d="{{levelArc(slice)}}" />
+            </g>
+
+            <g class="ticks ticks-secondary">
+                <g class="tick" ng-repeat="v in scales.degres.ticks(10)" ng-attr-transform="rotate({{scales.degres(v) - 90}})">
+                    <line ng-attr-y1="-{{radius.inner}}" ng-attr-y2="-{{radius.outer - 3}}" />
+                </g>
+            </g>
+
+            <g class="ticks ticks-main">
+                <path ng-attr-d="M-{{radius.inner}},0 A{{radius.inner}},{{radius.inner}} 0 0,1 {{radius.inner}},0" />
+                <g class="tick" ng-repeat="v in scales.degres.ticks(3)" ng-attr-transform="rotate({{scales.degres(v) - 90}})">
+                    <text ng-attr-y="-{{radius.outer}}" dy="-.35em">{{v}}</text>
+                    <line ng-attr-y1="-{{radius.inner}}" ng-attr-y2="-{{radius.outer - 3}}" />
+                </g>
+            </g>
+
+            <g class="pointer" ng-style="scales.degres(reading.value)|rotate">
+                <line x1="5" ng-attr-x2="-{{radius.inner + 5}}" />
+                <circle r="2" />
+            </g>
+
+        </g>
+
+
+        <g class="reading" ng-attr-transform="translate({{layout.innerWidth/2}},{{layout.innerHeight + layout.margin.bottom/2}})">
+            <text dy="-.5ex" class="value" style="font-size:18px">{{options.getValueAsText(reading)}}</text>
+            <text dy="1ex" style="font-size:9px; font-weight:200">{{reading.label}}</text>
+        </g>
+
+    </svg>
+</scd-svg-container>

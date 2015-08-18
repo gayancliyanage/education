@@ -1,0 +1,30 @@
+<header class="navbar navbar-default navbar-fixed-top">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="">Lifeline Medical Systems</a>
+
+    <div class="navbar-collapse collapse">
+      <ul class="nav navbar-nav hidden-xs pull-right">
+      </ul>
+    </div>
+  </div>
+</header>
+
+<section id="login" class="patient-panel">
+  <div class="container top-container">
+    <div class="row">
+      <div class="col-sm-8 col-md-8">
+        <h4>List of Users</h4>
+      </div>
+    </div>
+
+    <div class="patient-list" ng-cloak="groupedPatients">
+      <div class="row">
+        <div class="col-md-4">
+          <ul ng-repeat="user in users">
+            <a class="btn btn-primary" href="#" ng-click="login(user.id, user.type)">Login as {{user.name}}</a>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

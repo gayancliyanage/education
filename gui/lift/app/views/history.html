@@ -1,0 +1,23 @@
+<div ng-include="'./views/navbar.html'"></div>
+<div class="container-fluid" id="main-container">
+  <div class="row">
+    <div class="col-sm-3 col-md-2 sidebar">
+    </div>
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+      <h3 class="page-header">History</h3>
+      <div class="row chartholders">
+        <div class="col-sm-12">
+          <div class="panel panel-default panel-success" ng-repeat="item in history">
+            <div class="panel-heading">
+              <p class="panel-title text-right muted small-text">{{item.date}}</p>
+            </div>
+            <div class="panel-body">
+              {{item.text}}
+              <p class="text-right"><a href="">{{item.extraInfo}}</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

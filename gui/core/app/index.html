@@ -1,0 +1,99 @@
+<!DOCTYPE html><!--(if target dev)><!-->
+<html lang="en" data-ng-app="scCoreEducationMocked"><!--<!(endif)-->
+<!--(if target build || e2e || dist)><html lang="en" data-ng-app="scCoreEducation"><!(endif)-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width">
+  <title ng-init="page={}" ng-bind="api.title">Education Users</title>
+
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
+
+  <!-- build:css(app) css/vendor.css -->
+  <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.css">
+  <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap-theme.css">
+  <!-- endbuild -->
+
+  <!-- build:css(app) css/app.css -->
+  <link rel="stylesheet" href="css/app.css">
+  <!-- endbuild -->
+</head>
+
+<body>
+  <div id="wrap">
+    <header class="navbar navbar-default navbar-fixed-top" role="navigation"  ng-controller="scceNavBarCtrl">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-nav">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="">Education</a>
+        </div>
+        <div class="navbar-collapse collapse" id="main-nav">
+          <ul class="nav navbar-nav">
+            <li ng-class="{active: isActive('/users')}">
+              <a ng-href="#/users">Users</a>
+            </li>
+            <li ng-class="{active: isActive('/students')}">
+              <a ng-href="#/students">Students</a>
+            </li>
+            <li ng-class="{active: isActive('/staff')}">
+              <a ng-href="#/staff">Staff</a>
+            </li>
+          </ul>
+          <scce-user-login></scce-user-login>
+        </div>
+      </div>
+    </header>
+    <div class="container-fluid">
+      <div class="row">
+        <div ng-view="" id="main-container" class="col-md-12"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    <div class="container">
+      <p class="text-muted">&copy; 2014, Chris Boesch</p>
+    </div>
+  </footer>
+  <!-- build:js(app) js/vendor.js -->
+  <script src="lib/ng-file-upload/angular-file-upload-html5-shim.js"></script>
+  <script src="lib/jquery/dist/jquery.js"></script>
+  <script src="lib/lodash/dist/lodash.js"></script>
+  <script src="lib/angular/angular.js"></script>
+  <script src="lib/angular-route/angular-route.js"></script>
+  <script src="lib/bootstrap/js/collapse.js"></script>
+  <script src="lib/ng-file-upload/angular-file-upload.js"></script>
+  <script src="lib/restangular/dist/restangular.js"></script>
+  <!-- endbuild -->
+  <!-- build:js(app) js/app.js -->
+  <script src="js/app.js"></script>
+  <script src="js/app-config.js"></script>
+  <script src="js/app-services.js"></script>
+  <script src="js/app-controllers.js"></script>
+  <script src="components/svg/svg-directives.js"></script>
+  <script src="components/svg/svg-services.js"></script>
+  <script src="components/upload/upload-directives.js"></script>
+  <script src="components/user/user-controllers.js"></script>
+  <script src="components/user/user-directives.js"></script>
+  <script src="components/user/user-services.js"></script>
+
+  <!-- endbuild -->
+  <script src="js/app-templates.js"></script>
+  <!--(if target dev || e2e)><!-->
+  <script src="lib/angular-mocks/angular-mocks.js"></script>
+  <script src="js/app-fixtures.js"></script>
+  <!--<!(endif)--><!--(if target dev)><!-->
+  <script src="js/app-test.js"></script>
+  <!--<!(endif)-->
+
+
+</body>
+
+</html>

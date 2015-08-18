@@ -1,0 +1,60 @@
+<h1>
+    First Aid Global performance
+    <br/>
+    <small>
+        <a href="#/firstaid/">or show users detailled stats</a>
+    </small>
+</h1>
+
+<div class="well graph-view">
+
+    <form role="form" class="form-inline filter-selectors">
+
+        <div class="form-group">
+            <label for="resident-filter">Filter student by:</label>
+            <select id="resident-filter" class="form-control" ng-model="ctrl.filters.residents" ng-options="opt.id as opt.label for opt in ctrl.filterOptions.residents" required="true" ng-change="ctrl.filterChanged(ctrl.filters)">
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label class="sr-only" for="category-filter">And by category:</label>
+            <select id="category-filter" class="form-control" ng-model="ctrl.filters.topic" ng-options="opt.id as opt.label for opt in ctrl.filterOptions.topics" required="true" ng-change="ctrl.filterChanged(ctrl.filters)">
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="stats-filter">Rank by:</label>
+            <select id="stats-filter" class="form-control" ng-model="ctrl.filters.sortBy" ng-options="opt.id as opt.label for opt in ctrl.filterOptions.sortBy" required="true" ng-change="ctrl.filterChanged(ctrl.filters)">
+            </select>
+        </div>
+
+    </form>
+
+    <div class="chart-nav">
+        <p class="btn-group">
+            <button type="button" class="btn btn-default" ng-disabled="ctrl.pages.position() == 0" ng-click="ctrl.prev(ctrl.filters)">Prev</button>
+            <button type="button" class="btn btn-default" ng-disabled="!ctrl.pages.hasMore()" ng-click="ctrl.next(ctrl.filters)">Next</button>
+        </p>
+    </div>
+
+    <p ng-show="(ctrl.students|isEmpty) &amp;&amp; ctrl.pages.position() == 0" class="alert alert-info" role="alert">
+        <strong>No student data.</strong>
+    </p>
+
+    <p ng-show="(ctrl.students|isEmpty) &amp;&amp; ctrl.pages.position() > 0" class="alert alert-info" role="alert">
+        <strong>No more student data.</strong>
+    </p>
+
+    <scd-chart-histogram
+        ng-if="!(ctrl.students|isEmpty)"
+        class="firstaid-rank"
+        scd-layout="ctrl.chartLayout"
+        scd-series="ctrl.students"
+        scd-options="ctrl.chartOptions"
+        scd-ref="ctrl.chartRef"
+        scd-row-clicked="ctrl.showDetails"
+        scd-legend="ctrl.chartLegend"
+    >
+    </scd-chart-histogram>
+
+</div>

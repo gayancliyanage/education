@@ -1,0 +1,80 @@
+<div id="userAdd">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="cancel()">&times;</button>
+    <h4 class="modal-title">Add Patient</h4>
+  </div>
+  <form class="form-horizontal" name="userForm" novalidate="" ng-submit="submit(userForm.$valid)">
+    <div class="modal-body">
+
+      <div class="form-group" ng-class="{ 'has-error' : userForm.firstName.$invalid && !userForm.firstName.$pristine }">
+        <label for="firstName" class="col-sm-3 control-label">First Name*</label>
+
+        <div class="col-sm-6">
+          <input type="text" class="form-control" id="firstName" placeholder="Enter FirstName" name="firstName" ng-model="patient.firstName" required="">
+
+          <p ng-show="userForm.firstName.$invalid && !userForm.firstName.$pristine" class="help-block">First name is
+            required.</p>
+        </div>
+      </div>
+      <div class="form-group" ng-class="{ 'has-error' : userForm.lastName.$invalid && !userForm.lastName.$pristine }">
+        <label for="lastName" class="col-sm-3 control-label">Last Name *</label>
+
+        <div class="col-sm-6">
+          <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Enter Last Name" ng-model="patient.lastName" required="">
+
+          <p ng-show="userForm.lastName.$invalid && !userForm.lastName.$pristine" class="help-block">Last name is
+            required.</p>
+        </div>
+      </div>
+      <div class="form-group" ng-class="{ 'has-error' : userForm.address.$invalid && !userForm.address.$pristine }">
+        <label for="lastName" class="col-sm-3 control-label">Address *</label>
+
+        <div class="col-sm-6">
+          <input type="text" class="form-control" id="address" name="address" placeholder="Enter Address" ng-model="patient.address" required="">
+
+          <p ng-show="userForm.address.$invalid && !userForm.address.$pristine" class="help-block">Address is
+            required.</p>
+        </div>
+      </div>
+      <div class="form-group" ng-class="{ 'has-error' : userForm.dob.$invalid && !userForm.dob.$pristine }">
+        <label for="dob" class="col-sm-3 control-label">Date of Birth *</label>
+
+        <div class="col-sm-6">
+          <input type="date" class="form-control" id="dob" name="dob" placeholder="Date of Birth" required="" ng-model="dateString">
+
+          <p ng-show="userForm.dob.$invalid && !userForm.dob.$pristine" class="help-block">Date of Birth is required</p>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="dob" class="col-sm-3 control-label">Gender *</label>
+        <label for="male" class="col-sm-6 checkbox-inline">
+          <input type="radio" ng-checked="{{patient.gender == 'male'}}" name="gender" id="male" ng-model="patient.gender" value="male"> Male
+          <input type="radio" ng-checked="{{patient.gender == 'female'}}" name="gender" id="female" ng-model="patient.gender" value="female"> Female
+        </label>
+      </div>
+      <div class="form-group" ng-class="{ 'has-error' : userForm.tel.$invalid && !userForm.tel.$pristine }">
+        <label for="phoneNumber" class="col-sm-3 control-label">Phone Number *</label>
+
+        <div class="col-sm-6">
+          <input type="tel" class="form-control" id="phoneNumber" name="tel" placeholder="Phone Number" ng-model="patient.phoneNumber" required="">
+
+          <p ng-show="userForm.tel.$invalid && !userForm.tel.$pristine" class="help-block">Phone Number is required</p>
+        </div>
+      </div>
+      <div class="form-group" ng-class="{ 'has-error' : userForm.email.$invalid && !userForm.email.$pristine }">
+        <label for="email" class="col-sm-3 control-label">Email Address *</label>
+
+        <div class="col-sm-6">
+          <input type="email" class="form-control" id="email" name="email" placeholder="Email Address" ng-model="patient.emailAddress" required="">
+
+          <p ng-show="userForm.email.$invalid && !userForm.email.$pristine" class="help-block">Enter a valid email</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="cancel()">Close</button>
+      <input type="submit" class="btn btn-primary" ng-disabled="userForm.$invalid" value="Save">
+    </div>
+  </form>
+</div>

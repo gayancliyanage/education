@@ -1,0 +1,44 @@
+<scd-svg-container scd-viewbox="layout" ng-if="layout">
+    <svg>
+
+        <g class="ticks x-ticks">
+            <g ng-repeat="tick in xTicks" ng-attr-transform="translate({{scales.x(tick) + (scales.x.rangeBand() / 2)}},0)">
+                <line ng-attr-y2="{{layout.innerHeight + 5 }}" />
+                <text ng-attr-y="{{layout.innerHeight + 6}}" dy="1ex">{{ticksFormatter(tick)}}</text>
+            </g>
+        </g>
+
+        <g class="ticks y-ticks">
+            <g ng-repeat="tick in scales.y.ticks(5)" ng-attr-transform="translate(0,{{scales.yReversed(tick)}})">
+                <line x1="-5" ng-attr-x2="{{layout.innerWidth }}" />
+                <text x="-10" dy=".5ex">{{tick}}{{options.unit}}</text>
+            </g>
+            <line class="tick miner-tick" ng-repeat="tick in scales.y.ticks(20)" ng-attr-transform="translate(0,{{scales.yReversed(tick)}})" ng-attr-x2="{{layout.innerWidth }}" />
+        </g>
+
+        <g class="data">
+            <rect class="day" ng-repeat="day in series track by day.date" ng-attr-x="{{scales.x(options.getDate(day))}}" ng-attr-y="{{scales.yReversed(options.getValue(day))}}" ng-attr-width="{{scales.x.rangeBand()}}" ng-attr-height="{{scales.y(options.getValue(day))}}" />
+        </g>
+
+        <g class="axis x-axis" ng-attr-transform="translate(0,{{layout.innerHeight}})">
+            <line class="axis-line" ng-attr-x2="{{layout.innerWidth}}"></line>
+        </g>
+
+        <g class="axis y-axis">
+            <line class="axis-line" ng-attr-y2="{{layout.innerHeight}}"></line>
+            <g class="legend" ng-attr-transform="translate(-{{layout.margin.left}},{{layout.innerHeight/2}})">
+                <text transform="rotate(-90)">{{legend.y}}</text>
+            </g>
+        </g>
+
+        <g class="compareTo" ng-if="ref.value" ng-attr-transform="translate(0,{{scales.yReversed(ref.value)}})">
+            <line ng-attr-x2="{{layout.innerWidth}}" />
+            <text dx="15" dy="-1.5ex"><tspan>{{ref.label}}</tspan><tspan> (</tspan><tspan>{{ref.value}}</tspan><tspan>{{options.unit}}</tspan><tspan>)</tspan></text>
+        </g>
+
+        <g class="current-performance" ng-attr-transform="translate({{layout.innerWidth + layout.margin.right/2}},{{layout.innerHeight/2}})">
+            <text dy="-.6ex" style="font-size:48px"><tspan>{{current.value}}</tspan><tspan>{{options.unit}} </tspan></text><text style="font-size:12px; font-weight:200">{{current.label}}</text>
+        </g>
+
+    </svg>
+</scd-svg-container>

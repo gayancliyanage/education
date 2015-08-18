@@ -1,0 +1,90 @@
+<header class="navbar navbar-default navbar-fixed-top">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="">Lifeline Medical Systems</a>
+  </div>
+</header>
+<section id="physician" class="patient-panel">
+  <div class="container top-container">
+    <div class="row">
+      <div class="col-xs-5">
+        <h3><a href="" ng-click="toggleDay()">{{day}}</a></h3>
+      </div>
+      <div class="col-xs-5 text-right">
+        <h3>{{today | date}}</h3>
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-xs-12">
+        <h4>How are you feeling ?</h4>
+        <select name="feeling" id="feeling" class="input-lg form-control text-right" ng-model="status" ng-options="o as o for o in feelingOptions ">
+
+        </select>
+        <br>
+        <input type="text" ng-model="statusOther" ng-show="status == 'Other'" class="input-lg form-control" placeholder="How are you feeling">
+      </div>
+    </div>
+    <div ng-repeat="day in selectedPrescriptions" ng-init="monitor = patient.monitor">
+      <h2 class="well">{{day.name}}</h2>
+      <hr>
+      <div ng-repeat="p in day.medications">
+        <div class="row">
+          <div class="col-xs-12">
+            <h4>{{p.name}}</h4>
+          </div>
+          <div class="row" ng-if="p.type != 'data'">
+            <div class="col-xs-10 col-xs-offset-1">
+              <select name="{{p.name}}-$index" id="opt-{{p.id}}" class="input-lg form-control text-right" ng-model="p.value" ng-options="o as o for o in p.optionData ">
+
+              </select>
+            </div>
+            <div class="col-xs-10 col-xs-offset-1" ng-model="p.time" ng-show="p.value == 'Previously Taken at'">
+              <timepicker hour-step="1" minute-step="15" show-meridian="true" class="center-time"></timepicker>
+            </div>
+          </div>
+          <div ng-if="p.type == 'data'">
+            <div class="col-xs-10 col-xs-offset-1">
+              <select name="{{p.name}}-$index" id="{{p.id}}" class="input-lg form-control text-right" ng-model="p.value" ng-options="o as o for o in p.optionData ">
+
+              </select>
+            </div>
+            <hr>
+          </div>
+        </div>
+      </div>
+
+      <div ng-if="monitor.glucose == true">
+        <div class="row">
+          <div class="col-xs-12">
+            <h4>Glucose</h4>
+          </div>
+          <div class="col-xs-3 col-xs-offset-1">
+            <label>Fasting</label><input type="text" class="input-lg form-control">
+          </div>
+          <div class="col-xs-3 col-xs-offset-1">
+            <label>Random</label><input type="text" class="input-lg form-control">
+          </div>
+          <div class="col-xs-3 col-xs-offset-1">
+            <label>Temperature</label><input type="text" class="input-lg form-control">
+          </div>
+        </div>
+      </div>
+      <div ng-if="monitor.bloodPressure == true">
+        <div class="row">
+          <div class="col-xs-12">
+            <h4>Blood Pressure</h4>
+          </div>
+          <div class="col-xs-3 col-xs-offset-1">
+            <label>Systolic</label><input type="text" class="input-lg form-control">
+          </div>
+          <div class="col-xs-3 col-xs-offset-1">
+            <label>Diastolic</label><input type="text" class="input-lg form-control">
+          </div>
+          <div class="col-xs-3 col-xs-offset-1">
+            <label>Pulse</label><input type="text" class="input-lg form-control">
+          </div>
+        </div>
+      </div>
+    </div>
+</div></section>

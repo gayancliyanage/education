@@ -1,0 +1,7 @@
+cron:
+- description: update student rosh review stats
+  url: /cron/roshreview
+  schedule: every day 00:05
+- description: update student first aid stats
+  url: /cron/firstaid
+  schedule: every day 10:00

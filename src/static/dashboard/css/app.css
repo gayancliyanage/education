@@ -1,0 +1,225 @@
+html, body {
+  height: 100%;
+}
+
+#wrap {
+  min-height: 100%;
+  height: auto;
+  margin: 0 auto -60px;
+  padding: 60px 0;
+}
+
+#wrap > .container {
+  padding: 60px 0 20px;
+}
+
+footer {
+  overflow: hidden;
+  border-top: 1px solid #f4e3db;
+  height: 60px;
+  background-color: #f5f5f5;
+}
+
+footer .container .text-muted {
+  margin: 20px 0;
+}
+
+footer > .container {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+
+.table-scroll {
+  overflow-x: scroll;
+}
+
+.more-btn, .show-more {
+  text-align: center;
+}
+
+.graph-view h2 {
+  text-align: center;
+}
+.filter-selectors {
+  text-align: center;
+  margin-bottom: 20px;
+}
+.chart-nav {
+  text-align: right;
+}
+.chart-nav .btn {
+  padding-right: 20px;
+  padding-left: 20px;
+}
+text {
+  font-size: 12px;
+  line-height: 1em;
+}
+line {
+  stroke: #333;
+  stroke-width: 1px;
+}
+rect {
+  stroke: #fff;
+  fill: #333
+}
+.click {
+  cursor: pointer;
+  cursor: hand;
+}
+/** data **/
+
+.data text, .data tspan {
+  text-anchor: start;
+  font-size: 12px;
+}
+text.data-label {
+  font-size: 14px;
+}
+rect {
+  fill: #90EE90
+}
+.failing rect {
+  fill: #F08080
+}
+/** Border **/
+
+rect.border {
+  fill: none;
+  stroke: #bbb;
+}
+/** axis **/
+
+.axis line, .ticks line {
+  stroke: #bbb;
+}
+.axis line.miner-tick {
+  stroke: #ddd;
+}
+.ticks text {
+  text-anchor: middle;
+  font-size: 10px;
+  fill: #333;
+}
+.average text {
+  text-anchor: start;
+}
+/** x-axis **/
+
+.x-axis text {
+  text-anchor: middle;
+}
+/** y-axis **/
+
+.y-axis text, .y-ticks text, .chart-row .data-label {
+  text-anchor: end;
+}
+.axis .legend text {
+  text-anchor: middle;
+}
+/** Exam **/
+
+.exam .results line {
+  stroke: #B22222;
+}
+.exam .results rect {
+  fill: #B22222;
+  stroke: #ddd;
+}
+.exam .mean {
+  stroke: #32CD32;
+}
+.exam .results:hover text {
+  font-weight: 800;
+  font-size: 1.1em;
+}
+.exam .results:hover line {
+  stroke-width: 2px;
+}
+/** Evaluation **/
+
+.evaluation {
+  display: block;
+  padding-bottom: 20px;
+}
+.evaluation h4 {
+  text-align: center;
+}
+.evaluation rect.You {
+  fill: #1E90FF;
+  stroke: #ddd;
+}
+.evaluation rect.All-others {
+  fill: #B22222;
+  stroke: #ddd;
+}
+.evaluation .ticks text {
+  font-size: 12px
+}
+/** cumulative-perfomance **/
+
+.cumulative-perfomance rect {
+  stroke: none;
+}
+.current-performance text, .current-performance tspan {
+  text-anchor: middle;
+}
+/** User progress **/
+
+.pie path {
+  stroke: white;
+  stroke-width: 1px;
+}
+.pie-slice-correct path {
+  fill: #32CD32;
+}
+.pie-slice-incorrect path {
+  fill: #B22222;
+}
+.pie-slice-unattempted path {
+  fill: #FFF8DC;
+}
+.slice text {
+  text-anchor: start;
+}
+.slice text.past-center, text.pie-label.past-center {
+  text-anchor: end;
+}
+.progress text, .progress tspan {
+  text-anchor: middle;
+}
+/** Meters **/
+
+.meter .slices path {
+  fill: #B22222;
+}
+.meter .slices path.meter-level-warning {
+  fill: #FFFF00;
+}
+.meter .slices path.meter-level-ok {
+  fill: #32CD32;
+}
+.reading text, .reading tspan {
+  text-anchor: middle;
+}
+.meter .ticks-main text {
+  font-size: 7px;
+}
+.meter .tick line, .meter .tick path {
+  stroke-width: 1px;
+  stroke-opacity: 0.7;
+  stroke: #bbb;
+}
+.meter .ticks-main line, .meter .ticks-main path {
+  stroke-width: 2px;
+}
+.meter .ticks-main path {
+  fill: none;
+}
+.pointer {
+  -webkit-transition: -webkit-transform 1s ease;
+  -o-transition: -o-transform 1s ease;
+  -moz-transition: -moz-transform 1s ease;
+  transition: transform 1s ease;
+}

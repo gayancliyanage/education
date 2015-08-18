@@ -1,0 +1,3 @@
+jsonschema==2.3.0
+git+git://github.com/dinoboff/webapp2ext.swagger.git
+google-api-python-client

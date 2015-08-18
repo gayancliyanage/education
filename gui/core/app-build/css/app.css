@@ -1,0 +1,46 @@
+html, body {
+  height: 100%;
+}
+
+#wrap {
+  min-height: 100%;
+  height: auto;
+  margin: 0 auto -60px;
+  padding: 60px 0;
+}
+
+#wrap > .container {
+  padding: 60px 0 20px;
+}
+
+footer {
+  border-top: 1px solid #f4e3db;
+  height: 60px;
+  background-color: #f5f5f5;
+}
+
+footer .container .text-muted {
+  margin: 20px 0;
+}
+
+footer > .container {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.more-btn {
+  text-align: center
+}
+
+.upload-portrait {
+  height: 49px;
+}
+
+.upload-portrait img {
+  cursor: pointer;
+  cursor: hand;
+}
+
+.student-list tbody tr td {
+  vertical-align: middle;
+}

@@ -1,0 +1,66 @@
+<div ng-include="'./views/navbar.html'"></div>
+<div class="container-fluid" id="main-container">
+  <div class="row">
+    <div class="col-sm-3 col-md-2 sidebar hidden-xs">
+      <h5 class="media-heading">Available Meters</h5>
+      <ul class="nav nav-sidebar">
+        <li ng-repeat="meter in meters">
+          <a href="">{{meter}}</a>
+        </li>
+      </ul>
+    </div>
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+      <h3 class="page-header">Health Meter Readings</h3>
+      <div class="row chartholders">
+        <div class="col-sm-12 col-lg-4 chart">
+          <img src="holder.js/400x300/sky/text:Chart will be here" holder-fix="">
+
+        </div>
+        <div class="col-sm-12 col-lg-6 col-lg-offset-2">
+          <h3>Chart Data</h3>
+          <table class="table table-striped table-bordered">
+            <thead>
+            <tr>
+              <th>Rec#</th>
+              <th>Attribute</th>
+              <th>Value</th>
+              <th>Server Time</th>
+              <th>Location</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td>1</td>
+              <td>Systolic BP</td>
+              <td>114</td>
+              <td>03/12/2014 11:33AM</td>
+              <td>Home</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>Systolic BP</td>
+              <td>124</td>
+              <td>03/13/2014 11:33AM</td>
+              <td>Home</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>Systolic BP</td>
+              <td>120</td>
+              <td>03/14/2014 11:33AM</td>
+              <td>Home</td>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td>Systolic BP</td>
+              <td>136</td>
+              <td>03/15/2014 11:33AM</td>
+              <td>Home</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

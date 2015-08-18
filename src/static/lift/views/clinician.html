@@ -1,0 +1,105 @@
+<section id="clinician-container">
+  <div class="left-panel">
+    <div class="logo-panel">
+      <h1>Lifeline Medical Systems</h1>
+    </div>
+    <div class="left-panel-inner">
+
+    </div>
+  </div>
+  <div class="main-panel">
+    <div class="page-header">
+      <h2><i class="fa fa-home"></i> Clinician</h2>
+    </div>
+    <div class="content-panel">
+      <div class="row">
+        <div class="col-sm-6 col-md-3" ng-repeat="info in patientInfo">
+          <div class="panel panel-{{info.type}} panel-stat">
+            <div class="panel-heading">
+              <div class="stat">
+                <div class="row">
+                  <div class="col-xs-4">
+
+                    <i class="fa {{info.icon}} big"></i>
+                  </div>
+                  <div class="col-xs-8 text-center">
+                    <small class="stat-label">{{info.type}} Cases</small>
+                    <h1>{{info.number}}</h1><h5>({{info.percentage}}%)</h5>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-4 col-md-4 t-history">
+          <div class="panel panel-default panel-alt widget-messaging">
+            <div class="panel-heading">
+              <h3 class="panel-title">Transactional History</h3>
+            </div>
+            <div class="panel-body">
+              <ul>
+                <li ng-repeat="history in transactionHistory">
+                  <small class="pull-right">{{history.date}}</small>
+                  <p class="mt5">&nbsp;</p>
+                  <h4 class="sender">{{history.text}}</h4>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-8 col-md-8">
+          <div class="panel panel-default panel-alt widget-messaging">
+            <div class="panel-heading">
+              <h3 class="panel-title">Appointment Manager</h3>
+            </div>
+            <div class="panel-body">
+
+              <div ui-calendar="uiConfig.calendar" ng-model="eventSources"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="row">
+        <div class="col-sm-8 col-md-8 p-history">
+          <div class="panel panel-default panel-alt widget-messaging">
+            <div class="panel-heading">
+              <h3 class="panel-title">Prescription History</h3>
+            </div>
+            <div class="panel-body">
+              <div class="table-responsive">
+                <table class="table table-striped mb30">
+                  <thead>
+                  <tr>
+                    <th>Label</th>
+                    <th>Qty</th>
+                    <th>Dosage</th>
+                    <th>Classification</th>
+                    <th>Pharmacy</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr ng-repeat="phistory in prescriptionHistory">
+                    <td>{{phistory.label}}</td>
+                    <td>{{phistory.qty}}</td>
+                    <td>{{phistory.dosage}}</td>
+                    <td>{{phistory.classification}}</td>
+                    <td>{{phistory.pharmacy}}</td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+
+      </div>
+    </div>
+</div></section>

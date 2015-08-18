@@ -1,0 +1,6 @@
+*.pyc
+app/lib/
+app-dist/
+app-e2e/
+node_modules/
+npm-debug.log

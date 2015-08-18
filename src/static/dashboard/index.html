@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+
+<html lang="en" data-ng-app="scDashboard">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width">
+    <title ng-init="page={}" ng-bind="api.title">Student dashboard</title>
+
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300,400,600,700' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" href="css/vendor.css">
+
+    <link rel="stylesheet" href="css/app.css">
+</head>
+
+<body>
+    <div id="wrap">
+        <header class="navbar navbar-default navbar-fixed-top" role="navigation" ng-controller="ScdNavBarCtrl as navCtrl">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-nav">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="">Student Dasboard</a>
+                </div>
+                <div class="navbar-collapse collapse" id="main-nav">
+                    <ul class="nav navbar-nav">
+                        <li ng-class="{active: navCtrl.isActive('/', true)}">
+                            <a ng-href="#/">Repository</a>
+                        </li>
+                        <li ng-class="{active: navCtrl.isActive('/review')}">
+                            <a ng-href="#/review">Rosh Review</a>
+                        </li>
+                        <li ng-class="{active: navCtrl.isActive('/first-aid')}">
+                            <a ng-href="#/first-aid">First Aid</a>
+                        </li>
+                        <li ng-class="{active: navCtrl.isActive('/students')}" ng-if="navCtrl.currentUser.isStaff || navCtrl.currentUser.isAdmin">
+                            <a ng-href="#/students">Students</a>
+                        </li>
+                        <li ng-class="{active: navCtrl.isActive('/users')}" ng-if="navCtrl.currentUser.isAdmin">
+                            <a ng-href="#/users">Permissions</a>
+                        </li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <p class="navbar-text" ng-if="navCtrl.currentUser == null">Loading current user ..</p>
+                            <p class="navbar-text" ng-if="navCtrl.currentUser.displayName">Signed in as {{navCtrl.currentUser.displayName}}</p>
+                        </li>
+                        <li ng-if="navCtrl.currentUser">
+                            <a ng-href="{{navCtrl.currentUser.loginUrl}}" ng-if="!navCtrl.currentUser.isLoggedIn &amp;&amp; navCtrl.currentUser.loginUrl">
+                                <i class="glyphicon glyphicon-off"></i> login
+                            </a>
+                            <a ng-href="{{navCtrl.currentUser.logoutUrl}}" ng-if="navCtrl.currentUser.isLoggedIn &amp;&amp; navCtrl.currentUser.logoutUrl">
+                                <i class="glyphicon glyphicon-off"></i> logout
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </header>
+        <div class="container-fluid">
+            <div class="row">
+                <div ng-view="" id="main-container" class="col-md-12"></div>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        <div class="container">
+            <p class="text-muted">&copy; 2014, Chris Boesch</p>
+        </div>
+    </footer>
+
+    
+    
+    <script>
+        window.FileAPI = {
+            jsUrl: 'js/FileAPI.min.js',
+            flashUrl: 'js/FileAPI.flash.swf'
+        };
+    </script>
+    
+
+    <script src="js/vendor.js"></script>
+
+    <script src="js/app.js"></script>
+
+    
+    
+</body>
+
+</html>

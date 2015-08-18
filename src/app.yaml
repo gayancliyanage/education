@@ -1,0 +1,55 @@
+application: student-dashboard
+version: development
+runtime: python27
+api_version: 1
+threadsafe: true
+
+builtins:
+- appstats: on
+- deferred: on
+
+libraries:
+- name: pycrypto
+  version: "2.6"
+- name: webapp2
+  version: "2.5.2"
+- name: setuptools
+  version: "0.6c11"
+
+includes:
+- lib/mapreduce/include.yaml
+
+handlers:
+- url: /_ah/pipeline.*
+  script: mapreduce.lib.pipeline.handlers._APP
+  login: admin
+
+- url: /googleabb81f9e0d0a1a1e.html
+  static_files: verification.html
+  upload: verification.html
+  expiration: 1s
+
+- url: /cron/.*
+  script: cron.app
+  login: admin
+
+- url: /(api/|oauth2callback).*
+  script: main.app
+  secure: always
+
+- url: /(.+)/
+  static_files: static/\1/index.html
+  upload: static/.*/index.html
+  expiration: 1s
+  secure: always
+
+- url: /
+  static_files: static/index.html
+  upload: static/index.html
+  expiration: 1s
+  secure: always
+
+- url: /
+  static_dir: static
+  expiration: 1s
+  secure: always

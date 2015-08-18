@@ -1,0 +1,97 @@
+<div id="userAdd">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="cancel()">&times;</button>
+    <h4 class="modal-title">Prescriptions for {{patient.name}}</h4>
+  </div>
+
+  <div class="modal-body">
+    <h4>Collect</h4>
+    <div class="checkbox">
+      <label>
+          <input type="checkbox" ng-model="patient.monitor.bloodPressure" ng-change="updateMonitor('bloodPressure')"/> Monitor Blood Pressure
+        </label>
+    </div>
+    <div class="checkbox">
+      <label>
+          <input type="checkbox" ng-model="patient.monitor.glucose" ng-change="updateMonitor('glucose')"/> Monitor Glucose Levels
+        </label>
+    </div>
+    <h4>Prescriptions</h4>
+    <table class="table table-striped table-bordered">
+      <thead>
+      <tr>
+        <th>
+          Name
+        </th>
+        <th>Dosage</th>
+        <th>Schedule</th>
+        <th>Prescription Date</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr ng-repeat="p in patient.prescriptions">
+        <td>{{p.name}}</td>
+        <td>{{p.dose}} {{p.type}}</td>
+        <td>{{p.schedule | toHumanString}}</td>
+        <td>{{p.date | date}}</td>
+      </tr>
+      </tbody>
+    </table>
+    <div class="row">
+      <form class="form" name="prescriptionForm" ng-submit="addMedication(prescriptionForm.$valid)">
+        <div class="form-group">
+          <label class="sr-only" for="name">Name</label>
+
+          <div class="col-xs-3">
+            <input type="text" class="form-control" id="name" placeholder="Medication Name" ng-model="medication.name" required set-focus/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="sr-only" for="dose">Dosage</label>
+
+          <div class="col-xs-2">
+            <input type="number" class="form-control" id="dose" placeholder="Dose" ng-model="medication.dose" required/>
+          </div>
+        </div>
+        <div class="form-group mb15">
+          <label class="sr-only" for="type">Type</label>
+
+          <div class="col-xs-2">
+            <select class="form-control" name="type" id="type" ng-model="medication.type" required>
+              <option value="tablet">Tablet</option>
+              <option value="injection">Injection</option>
+              <option value="capsule">Capsule</option>
+              <option value="data">Data</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="sr-only" for="schedule">Schedule</label>
+
+          <div class="col-xs-3">
+            <select name="schedule" id="schedule" class="form-control" ng-model="medication.sched" required>
+              <option value="0">---- Choose ----</option>
+              <option value="1">Once Daily</option>
+              <option value="2">Twice Daily</option>
+              <option value="3">Thrice Daily</option>
+              <option value="4">Every 4 hours</option>
+              <option value="5">Every 5 hours</option>
+              <option value="6">Every 6 hours</option>
+              <option value="7">Every 8 hours</option>
+              <option value="8">Every 12 hours</option>
+              <option value="9">Every 24 hours</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-xs-2">
+          <button type="button" class="btn btn-primary" ng-click="addMedication(prescriptionForm.$valid)" ng-disabled="prescriptionForm.$invalid">Add</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="cancel()">Close</button>
+    <!--<input type="submit" class="btn btn-primary" ng-disabled="userForm.$invalid" value="Save">-->
+  </div>
+</div>
